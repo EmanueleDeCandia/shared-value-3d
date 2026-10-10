@@ -328,8 +328,16 @@ export default function TreeCanvas() {
       cosP = Math.cos(phi);
       sinP = Math.sin(phi);
       focal = h * 1.06;
-      cx = w / 2;
-      cy = h / 2 + h * 0.02;
+
+      // 20 millimetri in pixel CSS (96px/inch / 25.4mm/inch ≈ 3.78 px/mm):
+      // Spostato a destra di almeno 20mm (~83px ≈ 22mm su desktop)
+      // Abbassato di 20mm (~76px = 20mm)
+      const mmToPx = 96 / 25.4;
+      const shiftX = w >= 768 ? Math.round(22 * mmToPx) : Math.round(Math.min(20 * mmToPx, w * 0.1));
+      const shiftY = Math.round(20 * mmToPx);
+
+      cx = w / 2 + shiftX;
+      cy = h / 2 + h * 0.02 + shiftY;
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
