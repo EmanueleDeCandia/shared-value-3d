@@ -329,12 +329,12 @@ export default function TreeCanvas() {
       sinP = Math.sin(phi);
       focal = h * 1.06;
 
-      // 20 millimetri in pixel CSS (96px/inch / 25.4mm/inch ≈ 3.78 px/mm):
-      // Spostato a destra di almeno 20mm (~83px ≈ 22mm su desktop)
-      // Abbassato di 20mm (~76px = 20mm)
+      // Spostamento esplicito dell'albero:
+      // A destra di almeno 20-35mm (~140px su desktop) per liberare la colonna testo a sinistra
+      // In basso di almeno 20-25mm (~95px) per non soffocare la chioma sotto la barra superiore
       const mmToPx = 96 / 25.4;
-      const shiftX = w >= 768 ? Math.round(22 * mmToPx) : Math.round(Math.min(20 * mmToPx, w * 0.1));
-      const shiftY = Math.round(20 * mmToPx);
+      const shiftX = w >= 768 ? Math.round(Math.max(140, 25 * mmToPx)) : Math.round(Math.min(20 * mmToPx, w * 0.1));
+      const shiftY = Math.round(Math.max(95, 22 * mmToPx));
 
       cx = w / 2 + shiftX;
       cy = h / 2 + h * 0.02 + shiftY;
