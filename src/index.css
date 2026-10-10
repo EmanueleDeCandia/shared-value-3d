@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", "Instrument Sans", sans-serif;
+  --font-body: "Instrument Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --color-moss-950: #0a0f0c;
+  --color-moss-900: #0d1410;
+  --color-moss-850: #101813;
+  --color-moss-800: #141d16;
+  --color-moss-700: #1c281f;
+  --color-line: #243128;
+  --color-line-soft: #1b2620;
+
+  --color-ink: #efe9db;
+  --color-sage: #a9b9a1;
+  --color-dim: #77876f;
+
+  --color-amber: #e8b54a;
+  --color-amber-soft: #f2ce7e;
+  --color-leaf: #8fbf6a;
+  --color-leaf-bright: #c4e08a;
+  --color-ochre: #c08a4f;
+  --color-bark: #8a6a45;
+  --color-teal: #7fb6a4;
+  --color-fruitrose: #e39a6b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-moss-950);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-amber);
+  color: #171106;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-moss-950);
+}
+::-webkit-scrollbar-thumb {
+  background: #2c3a30;
+  border-radius: 8px;
+  border: 2px solid var(--color-moss-950);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3d5044;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* ---------- reveal on scroll ---------- */
+.rv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--rv-delay, 0ms);
+}
+.rv.on {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- ticker ---------- */
+@keyframes tickmove {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: tickmove 36s linear infinite;
+  will-change: transform;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---------- live dot ---------- */
+@keyframes livedot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+.live-dot {
+  animation: livedot 1.8s ease-in-out infinite;
+}
+
+/* ---------- range inputs ---------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-amber) 0%,
+    var(--color-amber) var(--fill, 50%),
+    #2a382e var(--fill, 50%),
+    #2a382e 100%
+  );
+  border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--color-amber-soft);
+  border: 3px solid #171106;
+  box-shadow: 0 0 0 1px var(--color-amber);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 1px var(--color-amber), 0 0 14px rgba(232, 181, 74, 0.55);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px;
+  background: #2a382e;
+  border-radius: 2px;
+}
+input[type="range"]::-moz-range-progress {
+  height: 3px;
+  background: var(--color-amber);
+  border-radius: 2px;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-amber-soft);
+  border: 3px solid #171106;
+  box-shadow: 0 0 0 1px var(--color-amber);
+}
+
+/* ---------- outlined ghost numbers ---------- */
+.ghost-num {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #46584a;
+  transition: color 0.4s ease, -webkit-text-stroke-color 0.4s ease;
+}
+.group:hover .ghost-num,
+a:hover .ghost-num {
+  color: var(--color-amber);
+  -webkit-text-stroke-color: var(--color-amber);
+}
+
+/* ---------- metric bar ---------- */
+.mbar {
+  transition: width 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ---------- detail panel ---------- */
+@keyframes panelin {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.panel-in {
+  animation: panelin 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ---------- count up flash ---------- */
+@keyframes valuepulse {
+  0% {
+    color: var(--color-leaf-bright);
+  }
+  100% {
+    color: var(--color-amber-soft);
+  }
+}
+.value-flash {
+  animation: valuepulse 0.6s ease-out;
+}
+
+/* canvas cursor states */
+.canvas-grab {
+  cursor: grab;
+}
+.canvas-grabbing {
+  cursor: grabbing !important;
+}
+.canvas-pointer {
+  cursor: pointer;
+}
+
+/* subtle vignette for the stage */
+.stage-vignette {
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(5, 8, 6, 0.55) 100%),
+    linear-gradient(to bottom, rgba(10, 15, 12, 0.35), transparent 18%, transparent 80%, rgba(10, 15, 12, 0.6));
+}
