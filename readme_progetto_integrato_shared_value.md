@@ -74,16 +74,16 @@ Il progetto implementa un modello di **Shared Value** in cui la competitività a
 |---|---|---|---|---|---|
 | Aziende clienti attive | `aziende` | 10 | 400 | 5 | **150** |
 | Dipendenti medi per azienda | `dip` | 5 | 120 | 1 | **30** |
-| Adozione voucher Hotel | `hotel` | 0 | 60% | 1% | **16%** |
-| Adozione voucher Food | `aper` | 0 | 60% | 1% | **25%** |
-| Adozione spesa Km 0 | `km0` | 0 | 60% | 1% | **20%** |
-| Frequenza ordini Km 0 (anno) | `freq` | 1 | 12 | 1 | **6** |
+| Adozione buono soggiorno | `hotel` | 0 | 60% | 1% | **16%** |
+| Adozione Voucher Aperitivo-Cena | `aper` | 0 | 60% | 1% | **25%** |
+| Acquisto Prodotti Km 0 | `km0` | 0 | 60% | 1% | **20%** |
+| Ordini di cesti all'anno | `freq` | 1 | 12 | 1 | **6 ordini/anno** |
 | Tratta logistica evitata (km) | `km` | 10 | 200 | 5 | **50 km** |
-| Tasso di Churn AS-IS | `churnA` | 0 | 30% | 1% | **10%** |
-| Tasso di Churn TO-BE | `churnB` | 0 | 30% | 1% | **2%** |
-| Tasso di generazione prospect | `prospect` | 0 | 60% | 1% | **30%** |
-| Tasso di chiusura contratti | `chiusura` | 0 | 60% | 1% | **20%** |
-| Valore medio cliente/anno (CLV) | `clv` | € 2.000 | € 50.000 | 500 | **€ 12.000** |
+| Abbandono attuale dei clienti | `churnA` | 0 | 30% | 1% | **10%** |
+| Abbandono con welfare attivo | `churnB` | 0 | 30% | 1% | **2%** |
+| Generazione di richieste spontanee | `prospect` | 0 | 60% | 1% | **30%** |
+| Tasso di chiusura dei contratti | `chiusura` | 0 | 60% | 1% | **20%** |
+| Customer Lifetime Value (CLV) | `clv` | € 1.000 | € 5.000 | 50 | **€ 1.250** |
 
 *Regola di calcolo:* $\Delta \text{churn} = \max(0, \text{churnA} - \text{churnB})$.
 
@@ -101,21 +101,21 @@ Tutti i valori sono calcolati sui parametri di default definiti al §3:
 | 4 | Valore Matching Grant Startup | $\text{MG} = B \times 25$ | $2.250 \times 25$ | **€ 56.250** |
 | 5 | Budget welfare complessivo attivato | $(W \times h\% \times 50) + (W \times a\% \times 25)$ | $(4.500 \times 16\% \times 50) + (4.500 \times 25\% \times 25)$ | **€ 64.125** |
 | 6 | Spesa indotta territoriale | $\text{Indotto} = \text{Budget Welfare} \times 2{,}5$ | $64.125 \times 2{,}5$ | **€ 160.313** |
-| 7 | Dipendenti acquirenti Km 0 | $\text{Acq} = W \times \text{Ad. Km0}$ | $4.500 \times 20\%$ | **900** |
-| 8 | Consegne annue effettuate | $C = \text{Acq} \times \text{Frequenza}$ | $900 \times 6$ | **5.400** |
-| 9 | Fatturato filiera Km 0 | $F = C \times 30$ | $5.400 \times 30$ | **€ 162.000** |
+| 7 | Acquirenti della filiera corta | $\text{Acq} = W \times \text{Ad. Km0}$ | $4.500 \times 20\%$ | **900** |
+| 8 | Consegne annue | $C = \text{Acq} \times \text{Frequenza}$ | $900 \times 6$ | **5.400** |
+| 9 | Fatturato della filiera | $F = C \times 30$ | $5.400 \times 30$ | **€ 162.000** |
 | 10 | Logistica stradale evitata | $\text{Km} = C \times \text{km/tratta}$ | $5.400 \times 50$ | **270.000 km** |
-| 11 | Emissioni $\text{CO}_2$ evitate | $\text{CO}_2 = \text{Km} \times 0{,}19$ | $270.000 \times 0{,}19 = 51.300\text{ kg}$ | **51,3 t** |
-| 12 | Valore economico ecosistema | $F + \text{Indotto} + \text{MG}$ | $162.000 + 160.312{,}5 + 56.250$ | **€ 378.563** |
-| 13 | Ambasciatori referral | $\text{Seed} \times 25\%$ | $1.125 \times 0{,}25$ | **281** |
+| 11 | Emissioni evitate | $\text{CO}_2 = \text{Km} \times 0{,}19$ | $270.000 \times 0{,}19 = 51.300\text{ kg}$ | **51,3 t** |
+| 12 | Valore generato per l'ecosistema | $F + \text{Indotto} + \text{MG}$ | $162.000 + 160.312{,}5 + 56.250$ | **€ 378.563** |
+| 13 | Ambasciatori del welfare | $\text{Seed} \times 25\%$ | $1.125 \times 0{,}25$ | **281** |
 | 14 | Inviti generati | $\text{Ambasciatori} \times 5$ | $281{,}25 \times 5$ | **1.406** |
-| 15 | K-Factor virale | $25\% \times 5 \times 25\%$ | $0{,}25 \times 5 \times 0{,}25$ | **0,3125** |
-| 16 | Prospect B2B qualificati | $\text{Ambasciatori} \times \text{Tasso Prospect}$ | $281{,}25 \times 30\%$ | **84** |
-| 17 | Nuovi contratti B2B conclusi | $\text{Prospect} \times \text{Tasso Chiusura}$ | $84{,}375 \times 20\%$ | **17** |
-| 18 | Imprese fidelizzate (salvate) | $\text{Aziende} \times (\text{ChurnA} - \text{ChurnB})$ | $150 \times (10\% - 2\%)$ | **12** |
-| 19 | Risparmio economico da retention | $\text{Fidelizzate} \times \text{CLV}$ | $12 \times 12.000$ | **€ 144.000** |
-| 20 | Valore B2B protetto e generato | $(\text{Fidelizzate} + \text{Nuovi Contratti}) \times \text{CLV}$ | $(12 + 17) \times 12.000$ | **€ 348.000** |
-| 21 | Riduzione relativa del Churn | $\frac{\text{ChurnA} - \text{ChurnB}}{\text{ChurnA}}$ | $\frac{10 - 2}{10}$ | **−80%** |
+| 15 | Indice di viralità (K-Factor) | $25\% \times 5 \times 25\%$ | $0{,}25 \times 5 \times 0{,}25$ | **0,3125** |
+| 16 | Aziende interessate (prospect) | $\text{Ambasciatori} \times \text{Tasso Prospect}$ | $281{,}25 \times 30\%$ | **84** |
+| 17 | Nuovi contratti firmati | $\text{Prospect} \times \text{Tasso Chiusura}$ | $84{,}375 \times 20\%$ | **17** |
+| 18 | Imprese clienti trattenute | $\text{Aziende} \times (\text{ChurnA} - \text{ChurnB})$ | $150 \times (10\% - 2\%)$ | **12** |
+| 19 | Valore preservato dalla retention | $\text{Fidelizzate} \times \text{CLV}$ | $12 \times 1.250$ | **€ 15.000** |
+| 20 | Valore commerciale complessivo | $(\text{Fidelizzate} + \text{Nuovi Contratti}) \times \text{CLV}$ | $(12 + 16{,}875) \times 1.250$ | **€ 36.094** |
+| 21 | Riduzione dell'abbandono | $\frac{\text{ChurnA} - \text{ChurnB}}{\text{ChurnA}}$ | $\frac{10 - 2}{10}$ | **−80%** |
 
 ---
 

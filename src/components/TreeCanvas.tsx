@@ -42,7 +42,7 @@ function inputDisplay(key: InputKey): string {
   const def = INPUT_BY_KEY[key];
   const v = store.inputs[key];
   if (def.unit === "%") return `${fmtInt(v)}%`;
-  if (def.unit === "€/anno") return `€ ${fmtInt(v)}`;
+  if (def.unit === "€" || def.unit === "€/anno") return `€ ${fmtInt(v)}`;
   return `${fmtInt(v)} ${def.unit}`;
 }
 

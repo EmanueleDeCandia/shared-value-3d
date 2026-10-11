@@ -13,7 +13,7 @@ function Slider({ def }: { def: InputDef }) {
   const v = store.inputs[def.key];
   const pct = ((v - def.min) / (def.max - def.min)) * 100;
   const display =
-    def.unit === "%" ? `${fmtInt(v)}%` : def.unit === "€/anno" ? `€ ${fmtInt(v)}` : `${fmtInt(v)} ${def.unit}`;
+    def.unit === "%" ? `${fmtInt(v)}%` : def.unit === "€" || def.unit === "€/anno" ? `€ ${fmtInt(v)}` : `${fmtInt(v)} ${def.unit}`;
   return (
     <label className="group block border border-line-soft bg-moss-850 px-3.5 py-3 transition-colors hover:border-line">
       <div className="flex items-baseline justify-between gap-3">

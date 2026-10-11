@@ -52,7 +52,7 @@ export default function DetailPanel() {
     value =
       def.unit === "%"
         ? `${fmtInt(v)}%`
-        : def.unit === "€/anno"
+        : def.unit === "€" || def.unit === "€/anno"
           ? `€ ${fmtInt(v)}`
           : `${fmtInt(v)} ${def.unit}`;
     const pct = ((v - def.min) / (def.max - def.min)) * 100;
@@ -160,9 +160,9 @@ export default function DetailPanel() {
     title = LEAVES_COPY.title;
     value = `adozione media ${fmtInt(ad * 100)}%`;
     const bars = [
-      { l: "Buono soggiorno", v: store.inputs.hotel },
-      { l: "Buono ristorazione", v: store.inputs.aper },
-      { l: "Spesa contadina", v: store.inputs.km0 },
+      { l: INPUT_BY_KEY.hotel.label, v: store.inputs.hotel },
+      { l: INPUT_BY_KEY.aper.label, v: store.inputs.aper },
+      { l: INPUT_BY_KEY.km0.label, v: store.inputs.km0 },
     ];
     body = (
       <>

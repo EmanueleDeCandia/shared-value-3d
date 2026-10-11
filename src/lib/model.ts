@@ -44,7 +44,7 @@ export const INPUTS: InputDef[] = [
     group: "popolazione",
     weight: 1.0,
     concept:
-      "Le imprese del portafoglio Illiria che attivano la convenzione welfare. Sono la prima radice dell'albero: più aziende entrano, più il sistema si ancora al tessuto economico locale.",
+      "Le imprese del portafoglio Illiria che aderiscono alla convenzione di welfare aziendale a regime nella Regione Marche. Sono la prima radice dell'albero: più aziende partecipano, maggiore è l'effetto traino, più la misura si radica nel tessuto economico locale.",
     feeds: ["m1", "m18", "m20"],
   },
   {
@@ -58,7 +58,7 @@ export const INPUTS: InputDef[] = [
     group: "popolazione",
     weight: 0.95,
     concept:
-      "La taglia media di ogni impresa cliente. Definisce quante persone raggiungono i benefit all'interno di ciascun contratto: è la radice che dà profondità alla popolazione servita.",
+      "La taglia media di ogni impresa cliente. Definisce il numero medio di addetti che hanno diritto per obbligo normativo al benefit (non chi lo utilizza: vedi la % di adesione effettiva): è la radice che dà profondità alla popolazione servita.",
     feeds: ["m1"],
   },
   {
@@ -72,12 +72,12 @@ export const INPUTS: InputDef[] = [
     group: "adozione",
     weight: 0.8,
     concept:
-      "La quota di lavoratori che utilizza il buono da 50 euro per dormire in hotel e agriturismi del territorio. Misura quanto il welfare riesce a mettere in moto l'ospitalità locale.",
+      "La quota di lavoratori che utilizza il buono da 50 euro per dormire in hotel e agriturismi del territorio. Misura quanto il welfare riesce a mettere in moto l'ospitalità locale: le adesioni effettive al Voucher di Welfare Aziendale.",
     feeds: ["m2", "m5"],
   },
   {
     key: "aper",
-    label: "Adozione buono ristorazione",
+    label: "Adozione Voucher Aperitivo-Cena",
     unit: "%",
     min: 0,
     max: 60,
@@ -86,12 +86,12 @@ export const INPUTS: InputDef[] = [
     group: "adozione",
     weight: 0.8,
     concept:
-      "La quota di lavoratori che sceglie il buono da 25 euro per aperitivi tipici e ristorazione. È la radice che alimenta bar, trattorie e cantine della filiera dell'accoglienza.",
+      "La quota di lavoratori che sceglie il buono da 25 euro per Aperitivo-Cena collegato agli Spettacoli ed eventi locali. È la radice che alimenta una linea di entrata della Startup.",
     feeds: ["m2", "m5"],
   },
   {
     key: "km0",
-    label: "Adozione spesa contadina",
+    label: "Acquisto Prodotti Km 0",
     unit: "%",
     min: 0,
     max: 60,
@@ -100,7 +100,7 @@ export const INPUTS: InputDef[] = [
     group: "adozione",
     weight: 0.85,
     concept:
-      "La quota di dipendenti che ordina i cesti di prodotti agricoli a chilometro zero. Trasforma la pausa pranzo in un atto di economia territoriale.",
+      "La quota di dipendenti che ordina cestini di almeno 30€ di prodotti a chilometro zero: risparmio di tempo necessario per fare la spesa di alta qualità favorendo produttori con basso accesso al mercato. Illiria crea sinergie e un forte impatto all'economia territoriale. Nota: soglie di acquisto minimo e tipo di prodotti devono essere complementari all'offerta Illiria.",
     feeds: ["m7", "m8", "m9"],
   },
   {
@@ -114,7 +114,7 @@ export const INPUTS: InputDef[] = [
     group: "adozione",
     weight: 0.7,
     concept:
-      "Quante volte l'anno ciascun acquirente ripete l'ordine del cesto contadino. La fedeltà dell'acquisto è ciò che trasforma l'iniziativa in reddito ricorrente per i produttori.",
+      "Quante volte l'anno ciascun addetto delle imprese clienti ripete l'ordine del cesto a Km 0. La fedeltà dell'acquisto è ciò che trasforma l'iniziativa in reddito ricorrente per i produttori.",
     feeds: ["m8", "m9"],
   },
   {
@@ -142,7 +142,7 @@ export const INPUTS: InputDef[] = [
     group: "commerciale",
     weight: 0.75,
     concept:
-      "Il tasso di abbandono annuo del servizio distributori nello scenario di partenza. È la misura di quanto valore, oggi, sfugge dalle radici.",
+      "L'assunzione del tasso di abbandono annuo del servizio OCS e Vending nello scenario di partenza. È la misura ipotetica di quanto valore, oggi, sfugge dalle radici.",
     feeds: ["m18", "m21"],
   },
   {
@@ -156,7 +156,7 @@ export const INPUTS: InputDef[] = [
     group: "commerciale",
     weight: 0.75,
     concept:
-      "Il tasso di abbandono quando il welfare è attivo: disdire il servizio significherebbe togliere un benefit ai dipendenti, e questo cambia la conversazione con il cliente.",
+      "Il tasso di abbandono quando il welfare aziendale è attivo: disdire il servizio significherebbe togliere un benefit ai dipendenti, e questo migliora la stabilità della relazione con i clienti.",
     feeds: ["m18", "m21"],
   },
   {
@@ -170,7 +170,7 @@ export const INPUTS: InputDef[] = [
     group: "commerciale",
     weight: 0.7,
     concept:
-      "La quota di ambasciatori le cui segnalazioni diventano richieste spontanee verso altre aziende: i dipendenti chiedono al proprio ufficio HR di attivare la convenzione.",
+      "La quota di ambasciatori le cui segnalazioni fatte ad addetti di altre imprese non clienti diventano richieste spontanee: i dipendenti chiedono al proprio ufficio HR di attivare la convenzione.",
     feeds: ["m16", "m17"],
   },
   {
@@ -184,21 +184,21 @@ export const INPUTS: InputDef[] = [
     group: "commerciale",
     weight: 0.7,
     concept:
-      "Quante delle richieste generate dal passaparola diventano contratti firmati. Arrivano già calde: è il cliente che ha chiesto di entrare.",
+      "Quante delle richieste generate dal passaparola diventano contratti firmati. Arrivano da richieste del personale stesso: sono i dipendenti che hanno conosciuto la misura da amici che suggeriscono l'opportunità di aderire.",
     feeds: ["m17", "m20"],
   },
   {
     key: "clv",
-    label: "Valore medio cliente all'anno",
-    unit: "€/anno",
-    min: 2000,
-    max: 50000,
-    step: 500,
-    def: 12000,
+    label: "Customer Lifetime Value",
+    unit: "€",
+    min: 1000,
+    max: 5000,
+    step: 50,
+    def: 1250,
     group: "commerciale",
     weight: 0.9,
     concept:
-      "Il valore medio annuo di un cliente enterprise per il Gruppo Illiria. È il metro con cui si pesa ogni impresa trattenuta e ogni nuovo contratto firmato.",
+      "Il valore medio della relazione di un cliente enterprise per il Gruppo Illiria. È il metro con cui si pesa ogni impresa trattenuta e ogni nuovo contratto firmato.",
     feeds: ["m19", "m20"],
   },
 ];
@@ -284,12 +284,13 @@ export const METRICS: MetricDef[] = [
   },
   {
     id: "m7",
-    label: "Acquirenti della filiera",
+    label: "Acquirenti della filiera corta",
     area: "territoriale",
     branch: 1,
     fmt: "int",
-    concept: "I dipendenti che ordinano i cesti contadini: la domanda stabile che permette ai produttori di programmare i raccolti.",
-    origin: "Nasce dalla popolazione raggiunta nella misura dell'adesione alla spesa contadina.",
+    concept:
+      "I dipendenti che ordinano i cesti di prodotti a Km 0: la domanda stabile che permette ai produttori di avere accesso al mercato direttamente dalla piattaforma di welfare.",
+    origin: "Nasce dalla popolazione raggiunta nella misura dell'adesione all'acquisto di prodotti a Km 0.",
     roots: ["aziende", "dip", "km0"],
   },
   {
@@ -299,7 +300,7 @@ export const METRICS: MetricDef[] = [
     branch: 1,
     fmt: "int",
     concept:
-      "Gli ordini dell'anno, tutti trasportati in groppa ai passaggi che i furgoni Illiria compiono comunque per rifornire i distributori.",
+      "Gli ordini dell'anno, tutti trasportati con sinergie di scopo della flotta che i furgoni Illiria compiono comunque per rifornire i distributori.",
     origin: "Nasce dagli acquirenti moltiplicati per gli ordini che ciascuno ripete in un anno.",
     roots: ["aziende", "dip", "km0", "freq"],
   },
@@ -309,7 +310,8 @@ export const METRICS: MetricDef[] = [
     area: "territoriale",
     branch: 1,
     fmt: "eur",
-    concept: "Il valore che arriva direttamente a produttori, botteghe e cantine locali: reddito agricolo nuovo, senza intermediari.",
+    concept:
+      "Il valore che arriva direttamente a produttori enogastronomici a Km 0: aziende agricole, botteghe e cantine locali: un nuovo mercato, senza le intermediazioni che superano dell'80% il valore aggiunto sul prezzo finale, senza costi di trasporto e ad impatto marginale per l'ambiente annullato.",
     origin: "Nasce dalle consegne annue valorizzate allo scontrino medio del cesto contadino.",
     roots: ["aziende", "dip", "km0", "freq"],
   },
@@ -330,7 +332,7 @@ export const METRICS: MetricDef[] = [
     branch: 1,
     fmt: "t",
     concept:
-      "Le tonnellate di anidride carbonica che non entrano in atmosfera grazie ai passaggi condivisi: il dato che finisce nel dossier verde spendibile nelle gare.",
+      "Le tonnellate di anidride carbonica che non entrano in atmosfera grazie ai passaggi condivisi: il dato che finisce nel dossier verde spendibile come fattore critico per la qualificazione dei contratti pubblici, nei Criteri Ambientali Minimi (CAM) e come vantaggio competitivo della responsabilità sociale territoriale nei contratti con gli enti pubblici.",
     origin: "Nasce dai chilometri evitati, applicando il coefficiente di emissione dell'autotrasporto.",
     roots: ["aziende", "dip", "km0", "freq", "km"],
   },
@@ -405,7 +407,8 @@ export const METRICS: MetricDef[] = [
     area: "illiria",
     branch: 4,
     fmt: "int",
-    concept: "Ogni ambasciatore invita in media cinque colleghi: è il passaparola organizzato che la piattaforma rende misurabile.",
+    concept:
+      "Ogni ambasciatore invita in media cinque persone (amici, partner, colleghi o familiari) : è il passaparola organizzato che la piattaforma rende misurabile.",
     origin: "Nasce dagli ambasciatori moltiplicati per gli inviti medi di ciascuno.",
     roots: ["aziende", "dip", "hotel", "aper"],
   },
@@ -457,8 +460,9 @@ export const METRICS: MetricDef[] = [
     area: "illiria",
     branch: 4,
     fmt: "eur",
-    concept: "Il fatturato che non evapora con l'abbandono evitato: ogni impresa trattenuta vale il suo intero canone annuo.",
-    origin: "Nasce dalle imprese trattenute valorizzate al valore medio cliente.",
+    concept:
+      "Il fatturato mantenuto con l'abbandono evitato: ogni impresa trattenuta è stata stimata con il valore del Customer Lifetime Value.",
+    origin: "Nasce dalle imprese trattenute valorizzate al Customer Lifetime Value.",
     roots: ["aziende", "churnA", "churnB", "clv"],
   },
   {
@@ -468,8 +472,8 @@ export const METRICS: MetricDef[] = [
     branch: 4,
     fmt: "eur",
     concept:
-      "Clienti salvati più clienti nuovi, valutati al loro valore annuo: è la risposta economica del modello, ottenuta a investimento monetario diretto nullo.",
-    origin: "Nasce dalla somma di imprese trattenute e nuovi contratti, moltiplicata per il valore medio cliente.",
+      "Clienti salvati più clienti nuovi, valutati con il valore a vita (Customer Lifetime Value): è la risposta economica del modello, ottenuta a investimento monetario diretto nullo.",
+    origin: "Nasce dalla somma di imprese trattenute e nuovi contratti, moltiplicata per il Customer Lifetime Value.",
     roots: ["aziende", "dip", "hotel", "aper", "prospect", "chiusura", "churnA", "churnB", "clv"],
   },
   {
@@ -478,7 +482,8 @@ export const METRICS: MetricDef[] = [
     area: "illiria",
     branch: 4,
     fmt: "pct",
-    concept: "Di quanto si riduce il tasso di abbandono: da problema strutturale del servizio a fisiologia di mercato.",
+    concept:
+      "Di quanto si riduce il tasso di abbandono: da una media di settore ipotizzata del 10% per un prodotto facilmente sostituibile al 2% dei servizi con attributi basati sulla componente fiducia.",
     origin: "Nasce dal confronto tra l'abbandono attuale e quello con welfare attivo.",
     roots: ["churnA", "churnB"],
   },
@@ -504,7 +509,7 @@ export const BRANCHES: BranchDef[] = [
     title: "Welfare aziendale dai budget esistenti",
     tag: "Origine del valore",
     concept:
-      "Le imprese clienti finanziano buoni da 50 euro per soggiorni in hotel e agriturismi e da 25 euro per aperitivi tipici e ristorazione, attingendo interamente a budget già deducibili. La piattaforma della Startup emette, valida e riscuote i buoni in digitale, senza carta né rimborsi.",
+      "Le imprese clienti finanziano buoni da 50 euro per soggiorni in hotel e agriturismi e da 25 euro per aperitivi tipici e ristorazione, attingendo interamente a budget del Flexible Benefit. La piattaforma della Startup emette, valida, predispone la conformità normativa e amministrativa con documentazione automatizzata dei buoni in digitale, senza carta né rimborsi.",
     ritorno:
       "Illiria siede al tavolo della Direzione HR e dell'Amministratore Delegato come abilitatore del welfare, superando la logica di commodity legata al prezzo della cialda.",
   },
@@ -513,16 +518,16 @@ export const BRANCHES: BranchDef[] = [
     title: "Filiera contadina a emissioni aggiuntive nulle",
     tag: "Logistica condivisa",
     concept:
-      "I dipendenti ordinano cesti di prodotti locali via piattaforma. I furgoni tecnici di Illiria, già pianificati per il rifornimento e l'igienizzazione dei distributori, li prelevano e li consegnano sul posto di lavoro. Nessun mezzo extra su strada: costo di trasporto azzerato per i produttori ed emissioni dedicate annullate.",
+      "I dipendenti ordinano cesti di prodotti locali via piattaforma. La flotta consegna senza alcuna variazione del percorso pianificato per il rifornimento OCS o distributori, prelevandoli su uno o due punti di prelievo del tragitto e li consegnano sul posto di lavoro. Nessun kilometro extra: costo di trasporto azzerato per i produttori ed emissioni dedicate annullate. L'impatto ambientale marginale è di fatto zero. Uno dei rari casi in cui sia l'impatto fisico è alto, la comunicazione ambientale ad alta risonanza e senza dubbi di greenwashing.",
     ritorno:
       "Si crea un dossier certificato di compensazione delle emissioni e di logistica verde, spendibile con punteggi tecnici premianti nei capitolati di gara pubblici e privati.",
   },
   {
     id: 2,
-    title: "Fondo biglietti e ospitalità territoriale",
+    title: "Fondo biglietti, Matching Grant e Ospitalità locale",
     tag: "Leva della Startup",
     concept:
-      "La Startup copre interamente i biglietti di spettacoli ed eventi culturali, venticinque euro per il dipendente e per il suo accompagnatore. Il biglietto abilita i buoni soggiorno e ristorazione: il weekend sul territorio avviene a costi vivi minimi e accende una spesa accessoria che moltiplica il valore per due e mezzo.",
+      "La Startup copre interamente i biglietti di spettacoli ed eventi culturali, venticinque euro per il dipendente e per il suo accompagnatore. Il biglietto è abbinato ad ogni Voucher di Welfare Aziendale erogato per soggiorno e ristorazione: il weekend sul territorio avviene a costi vivi minimi e accende una spesa accessoria che moltiplica il valore per due e mezzo.",
     ritorno:
       "Visibilità e co-branding per Illiria come promotore ufficiale dell'esperienza nel tempo libero dei lavoratori.",
   },
@@ -531,7 +536,7 @@ export const BRANCHES: BranchDef[] = [
     title: "Cultura, spettacolo e rendicontazione ESG",
     tag: "Impatto certificato",
     concept:
-      "Ogni evento retribuisce venti artisti e maestranze locali davanti a circa mille spettatori. Le imprese partner inseriscono i risultati nel Bilancio di Sostenibilità e nel Report ESG con metriche oggettive e certificate, non con dichiarazioni di intenti.",
+      "Ogni evento è una rassegna di sei o otto spettacoli in comuni diversi: retribuisce in media venti artisti e attrae circa mille spettatori aggiuntivi rispetto ai beneficiari di Welfare aziendale con campagne di advertising. Le imprese coinvolte nel programma di Welfare hanno la visibilità creata dagli sponsor che finanziano il budget media per la campagne. In questo modo anche le piccole imprese hanno visibilità per dare risalto ai risultati che tradizionalmente non riescono a fare. La Startup le supporta per definire schemi CSRD di EFRAG per PMI (Bilancio di Sostenibilità), indicatori ESG, o il modello Integrated Reporting <IR> dell'IFRS Sustainability Disclosure Standards con metriche oggettive e certificabili.",
     ritorno:
       "Una piattaforma di PR e CSR congiunta, con casi operativi documentati a supporto della rete commerciale nelle gare e nelle offerte integrate.",
   },
@@ -540,7 +545,7 @@ export const BRANCHES: BranchDef[] = [
     title: "Passaparola dei lavoratori e fedeltà dei clienti",
     tag: "Motore di crescita",
     concept:
-      "Al termine dell'esperienza il dipendente riceve il Certificato Welfare e Impatto e invita i colleghi di altre aziende a chiedere al proprio ufficio HR l'attivazione della convenzione. Le direzioni HR ricevono richieste spontanee dal basso. Intanto, disdire il servizio distributori significherebbe revocare il benefit ai dipendenti: una barriera all'uscita che protegge il portafoglio.",
+      "Al termine dell'esperienza il dipendente riceve il Certificato Welfare e Impatto e invita i colleghi di altre aziende a chiedere al proprio ufficio HR l'attivazione della convenzione. Le direzioni HR ricevono richieste spontanee dal basso. Disdire il servizio OCS o distributori significherebbe revocare il benefit ai dipendenti: una barriera all'uscita che protegge il portafoglio.",
     ritorno:
       "Acquisizione di nuovi clienti enterprise a costo commerciale zero e fidelizzazione del portafoglio esistente: il churn crolla perché il cliente non vuole perdere il welfare.",
   },
@@ -733,7 +738,7 @@ export const PRESETS: { id: string; label: string; note: string; values: InputVa
       churnB: 5,
       prospect: 20,
       chiusura: 15,
-      clv: 9000,
+      clv: 1000,
     },
   },
   {
@@ -752,7 +757,7 @@ export const PRESETS: { id: string; label: string; note: string; values: InputVa
       churnB: 1,
       prospect: 45,
       chiusura: 30,
-      clv: 18000,
+      clv: 2000,
     },
   },
 ];
