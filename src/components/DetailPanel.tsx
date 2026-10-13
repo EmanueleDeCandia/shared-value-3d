@@ -18,7 +18,7 @@ const AREA_LABEL: Record<string, string> = {
   ambientale: "Impatto ambientale",
   territoriale: "Impatto sul territorio",
   cultura: "Cultura e spettacolo",
-  illiria: "Ritorno per il Gruppo Illiria",
+  illiria: "Benefici per il Gruppo Illiria",
 };
 
 function scrollToTree() {
@@ -104,7 +104,7 @@ export default function DetailPanel() {
   } else if (sel.type === "trunk") {
     kicker = "Tronco · struttura portante";
     title = TRUNK_COPY.title;
-    value = "investimento Illiria: 0 euro";
+    value = "investimento Illiria: fiducia";
     body = (
       <>
         <p className="text-[13.5px] leading-relaxed text-sage">{TRUNK_COPY.concept}</p>
@@ -133,7 +133,7 @@ export default function DetailPanel() {
         <p className="text-[13.5px] leading-relaxed text-sage">{b.concept}</p>
         <p className="mt-4 border-l-2 border-amber pl-3 text-[13px] leading-relaxed text-ink">
           <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber">
-            Ritorno per Illiria
+            Benefici per Illiria
           </span>
           <br />
           {b.ritorno}
@@ -181,10 +181,10 @@ export default function DetailPanel() {
           ))}
         </div>
         <p className="mt-4 font-mono text-[10.5px] leading-relaxed text-dim">
-            Suggerimento: {ROOTS_COPY.title.toLowerCase()} — apri una radice di adozione e spostala,
-            la chioma reagisce.
-          </p>
-        </>
+          Suggerimento: {ROOTS_COPY.title.toLowerCase()} — apri una radice di adozione e spostala,
+          la chioma reagisce.
+        </p>
+      </>
     );
   } else {
     const m = METRIC_BY_ID[sel.id];

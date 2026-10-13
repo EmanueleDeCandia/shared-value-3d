@@ -20,7 +20,7 @@ export function Header() {
     ["Valore commerciale", formatValue("eur", model.values["m20"])],
     ["Abbandono clienti", `da ${fmtInt(store.inputs.churnA)}% a ${fmtInt(store.inputs.churnB)}%`],
     ["Nuovi contratti", formatValue("int", model.values["m17"])],
-    ["Investimento monetario Illiria", "0 euro"],
+    ["Investimento monetario Illiria", "fiducia"],
   ] as const;
 
   return (
@@ -86,7 +86,7 @@ export function Header() {
 
 export function Premessa() {
   return (
-    <section className="relative border-t border-line bg-moss-950 py-20 sm:py-28">
+    <section id="premessa" className="relative border-t border-line bg-moss-950 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-5 sm:px-10">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div className="rv">
@@ -99,11 +99,15 @@ export function Premessa() {
               partita, giocata sullo stesso territorio.
             </h2>
             <p className="mt-6 max-w-2xl text-[15.5px] leading-relaxed text-sage">
-              Il progetto trasforma tre doti già esistenti — il portafoglio clienti di Illiria, la
-              sua logistica quotidiana e i budget deducibili delle imprese — in welfare per i
-              lavoratori, reddito per la filiera agricola, cultura retribuita e, in ritorno,
-              fidelizzazione e nuovi contratti per il Gruppo. Nessuna voce di costo nuova: cambia il
-              modo in cui il valore già presente viene fatto circolare.
+              Il progetto trasforma tre risorse esistenti: il portafoglio clienti di Illiria, la sua logistica quotidiana e i budget minimi
+              che le imprese erogano per i benefit ai dipendenti in promozione dello sviluppo locale. Moltiplica i benefici che le imprese
+              clienti destinano ai propri lavoratori con budget della startup, crea vantaggi competitivi per i clienti, abilitando le aziende
+              ad essere promotrici di impatto economico e sociale.
+              <br />
+              <br />
+              Genera a cascata nuove fonti di revenue per lo spettacolo dal vivo, per l'ospitalità locale e per la filiera corta agro-alimentare.
+              Esternalità positive che il Gruppo internalizza con maggiore fidelizzazione e nuove proposte contrattuali basate sulla creazione di
+              valore condiviso. Nessun costo nuovo: cambia il modo in cui il Gruppo favorisce sinergie creando impatto in attività e settori diversi.
             </p>
           </div>
           <div className="rv flex flex-col justify-end gap-4" style={{ "--rv-delay": "120ms" } as React.CSSProperties}>
@@ -116,7 +120,7 @@ export function Premessa() {
             <div className="grid grid-cols-2 gap-px border border-line bg-line">
               {[
                 ["Partner", "tre, più il territorio"],
-                ["Investimento Illiria", "0 euro"],
+                ["Investimento Illiria", "Fiducia"],
                 ["Metriche tracciate", "23"],
                 ["Leve modificabili", "12"],
               ].map(([l, v]) => (
@@ -158,6 +162,33 @@ export function Regole() {
             </div>
           ))}
         </div>
+
+        {/* nota di analisi di sensibilità e sostenibilità */}
+        <div
+          className="rv mt-6 border-l-2 border-amber/70 bg-moss-850/80 p-5 sm:p-6"
+          style={{ "--rv-delay": "140ms" } as React.CSSProperties}
+        >
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.18em] text-amber">
+            Nota metodologica e analisi di sensibilità
+          </p>
+          <p className="mt-2 text-[13.5px] leading-relaxed text-sage">
+            Abbiamo testato varie assunzioni sui dati con analisi di sensibilità. La sostenibilità del modello è garantita da:
+          </p>
+          <ul className="mt-3 space-y-2.5 text-[13px] leading-relaxed text-dim">
+            <li className="flex items-start gap-2.5">
+              <span className="font-mono font-semibold text-amber-soft">a)</span>
+              <span>
+                Le proiezioni dei ricavi generati dalla linea di prodotti a filiera corta (km 0) sono state escluse dalle stime per la loro natura altamente aleatoria. Eventuali schemi di monetizzazione o commissioni saranno valutate successivamente sulla base delle metriche di performance effettive. Sul piano operativo, queste partnership prevedono modelli incentrati sull'incentivazione, come la fornitura di reward In-Kind (omaggi/cestini regalo) legati a specifici volumi di conversione nello store collegato alla piattaforma di welfare.
+              </span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="font-mono font-semibold text-amber-soft">b)</span>
+              <span>
+                Anche azzerando l'impatto del passaparola i risultati principali per Illiria sarebbero comunque irrilevanti rispetto a quelli di proposte fatte direttamente a nuovi clienti; allo stesso modo questi risultati sono irrilevanti per il successo degli eventi locali.
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );
@@ -181,9 +212,8 @@ export function Partners() {
           {PARTNERS.map((p, i) => (
             <article
               key={p.name}
-              className={`rv group grid gap-x-8 gap-y-3 border-b-2 border-line py-7 transition-colors md:grid-cols-[250px_1fr_1fr] ${
-                p.highlight ? "border-l-4 border-l-amber bg-moss-900 pl-4 md:-ml-4" : "hover:bg-moss-900/60 md:px-0 md:hover:px-2"
-              }`}
+              className={`rv group grid gap-x-8 gap-y-3 border-b-2 border-line py-7 transition-colors md:grid-cols-[250px_1fr_1fr] ${p.highlight ? "border-l-4 border-l-amber bg-moss-900 pl-4 md:-ml-4" : "hover:bg-moss-900/60 md:px-0 md:hover:px-2"
+                }`}
               style={{ "--rv-delay": `${i * 60}ms` } as React.CSSProperties}
             >
               <div>
@@ -199,11 +229,11 @@ export function Partners() {
                 )}
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Mette in campo</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Semina</p>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-sage">{p.gives}</p>
               </div>
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Porta a casa</p>
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-dim">Raccoglie</p>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-sage">{p.gets}</p>
               </div>
             </article>
@@ -256,7 +286,7 @@ export function Flows() {
               </span>
               <span className="block border-l-2 border-amber pl-4 md:self-center">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber">
-                  Ritorno per Illiria
+                  Benefici per Illiria
                 </span>
                 <span className="mt-2 block text-[13.5px] leading-relaxed text-ink">{b.ritorno}</span>
               </span>
@@ -304,11 +334,11 @@ function MetricRow({ m, index }: { m: MetricDef; index: number }) {
 
 export function Results() {
   const groups: { title: string; color: string; items: MetricDef[] }[] = [
-    { title: "Persone e welfare", color: "#e8b54a", items: METRICS.filter((m) => m.area === "sociale") },
-    { title: "Ambiente e logistica", color: "#7fb6a4", items: METRICS.filter((m) => m.area === "ambientale") },
-    { title: "Territorio e filiera", color: "#8fbf6a", items: METRICS.filter((m) => m.area === "territoriale") },
-    { title: "Cultura e spettacolo", color: "#e39a6b", items: METRICS.filter((m) => m.area === "cultura") },
-    { title: "Ritorno commerciale Illiria", color: "#f2ce7e", items: METRICS.filter((m) => m.area === "illiria") },
+    { title: "Frutti: Persone e welfare", color: "#ffffff", items: METRICS.filter((m) => m.area === "sociale") },
+    { title: "Frutti: Ambiente e logistica", color: "#7fb6a4", items: METRICS.filter((m) => m.area === "ambientale") },
+    { title: "Frutti: Territorio e filiera", color: "#8fbf6a", items: METRICS.filter((m) => m.area === "territoriale") },
+    { title: "Frutti: Cultura e spettacolo", color: "#e39a6b", items: METRICS.filter((m) => m.area === "cultura") },
+    { title: "Frutti: commerciali Gruppo Illiria", color: "#ef4444", items: METRICS.filter((m) => m.area === "illiria") },
   ];
   let idx = -1;
   return (
@@ -382,7 +412,7 @@ function Num({ value, format, big }: { value: number; format: (v: number) => str
   return (
     <span
       ref={ref}
-      className={`font-mono font-semibold tabular-nums text-amber-soft ${big ? "text-[clamp(2rem,4.5vw,3.6rem)]" : "text-[clamp(1.5rem,3vw,2.3rem)]"}`}
+      className={`font-mono font-semibold tabular-nums text-amber-soft whitespace-nowrap ${big ? "text-[clamp(1.75rem,3.8vw,3.35rem)]" : "text-[clamp(1.5rem,3vw,2.3rem)]"}`}
     >
       {format(value * f)}
     </span>
@@ -395,7 +425,7 @@ export function Dashboard() {
   const v = model.values;
   return (
     <section id="cruscotto" className="scroll-mt-28 border-t border-line bg-[#080d0a] py-20 sm:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="rv">
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-amber">
             06 · Cruscotto finale
@@ -406,7 +436,7 @@ export function Dashboard() {
         </div>
 
         <div className="mt-12 grid gap-px border border-line bg-line lg:grid-cols-12">
-          <div className="rv bg-moss-900 p-7 lg:col-span-5">
+          <div className="rv bg-moss-900 p-6 sm:p-7 lg:col-span-4">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">Persone</p>
             <div className="mt-4 space-y-4">
               <div>
@@ -426,7 +456,7 @@ export function Dashboard() {
             </div>
           </div>
 
-          <div className="rv bg-moss-900 p-7 lg:col-span-3" style={{ "--rv-delay": "80ms" } as React.CSSProperties}>
+          <div className="rv bg-moss-900 p-6 sm:p-7 lg:col-span-3" style={{ "--rv-delay": "80ms" } as React.CSSProperties}>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-teal">Ambiente</p>
             <div className="mt-4 space-y-4">
               <div>
@@ -435,12 +465,12 @@ export function Dashboard() {
               </div>
               <div className="border-t border-line-soft pt-4">
                 <Num value={v["m10"]} format={(x) => fmtInt(x)} />
-                <p className="mt-1 text-[12px] leading-snug text-dim">chilometri di furgoni in meno sull'asfalto</p>
+                <p className="mt-1 text-[12px] leading-snug text-dim">chilometri evitati grazie alla logistica condivisa</p>
               </div>
             </div>
           </div>
 
-          <div className="rv bg-moss-900 p-7 lg:col-span-4" style={{ "--rv-delay": "140ms" } as React.CSSProperties}>
+          <div className="rv bg-moss-900 p-6 sm:p-7 lg:col-span-5" style={{ "--rv-delay": "140ms" } as React.CSSProperties}>
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-leaf-bright">Territorio</p>
             <div className="mt-4">
               <Num value={v["m12"]} format={(x) => fmtEur(x)} big />
@@ -465,13 +495,13 @@ export function Dashboard() {
           <div className="rv bg-moss-900 p-7 lg:col-span-12" style={{ "--rv-delay": "200ms" } as React.CSSProperties}>
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">
-                Ritorno economico e commerciale · Gruppo Illiria
+                Impatto commerciale · Gruppo Illiria
               </p>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">
-                a fronte di un investimento monetario diretto di <span className="font-semibold text-amber">0 euro</span>
+                investimento monetario diretto <span className="font-semibold text-amber">non necessario</span>
               </p>
             </div>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.1fr_1.35fr]">
               <div>
                 <Num value={v["m21"] * 100} format={(x) => `−${fmtInt(x)}%`} big />
                 <p className="mt-1.5 text-[13px] text-sage">
@@ -487,10 +517,10 @@ export function Dashboard() {
               <div>
                 <Num value={v["m17"]} format={(x) => fmtInt(x)} big />
                 <p className="mt-1.5 text-[13px] text-sage">
-                  nuovi contratti enterprise firmati a costo di acquisizione azzerato
+                  nuovi contratti enterprise con costo di acquisizione ridotto per la rete commerciale
                 </p>
               </div>
-              <div className="border border-amber/40 bg-amber/5 p-4">
+              <div className="border border-amber/40 bg-amber/5 p-4 sm:p-5">
                 <Num value={v["m20"]} format={(x) => fmtEur(x)} big />
                 <p className="mt-1.5 text-[13px] text-amber-soft">
                   valore commerciale complessivo, generato e protetto
@@ -498,10 +528,10 @@ export function Dashboard() {
               </div>
             </div>
             <p className="mt-6 border-t border-line-soft pt-4 text-[13.5px] leading-relaxed text-dim">
-              E in più, fuori dal calcolo: il posizionamento come partner welfare ed ESG al tavolo
-              delle direzioni HR, il dossier di logistica verde spendibile nei capitolati di gara, e
-              una barriera all'uscita che lega il servizio distributori al benessere percepito dai
-              dipendenti dei clienti.
+              I valori non monetizzabili sono spesso i più importanti e esclusi dal calcolo: il posizionamento come partner di sviluppo locale
+              per le più grandi aziende delle Marche, le relazioni istituzionali con la Regione che conosce e sostiene questo modello di intervento, le partneship con gli enti pubblici locali,
+              e
+              la forte barriera competitiva di differenziazione dai competitor che fanno leva sul prezzo dei prodotti e dai costosi servizi che rimangono pur sempre collegati ad un prodotto facilmente sostituibile.
             </p>
           </div>
         </div>
@@ -517,17 +547,17 @@ export function NextSteps() {
     {
       n: "01",
       t: "Perimetro pilota",
-      d: "Si parte dal portafoglio già caldo: le imprese con relazioni HR consolidate e i furgoni che già coprono le tratte. Il territorio del pilota è quello dove la rete di produttori e ospitalità è pronta.",
+      d: "Si parte dal portafoglio clienti esistenti: le imprese con relazioni consolidate e la flotta che le rifornisce. Il territorio del pilota è quello dove la rete di produttori e ospitalità è pronta.",
     },
     {
       n: "02",
       t: "Attivazione della piattaforma",
-      d: "Convenzioni, buoni welfare, calendario degli spettacoli e listino dei cesti contadini. La Startup accredita la rete territoriale e apre il fondo biglietti; Illiria porta i clienti al tavolo.",
+      d: "Convenzioni, buoni welfare, calendario degli spettacoli e listino dei cesti a Km 0. La Startup apre le proposte alla rete territoriale, coinvolge i clienti del Gruppo con il budget Biglietti.",
     },
     {
       n: "03",
-      t: "Misurazione e dossier",
-      d: "Ogni trimestre il modello ricalcola le ventitré metriche: il Bilancio di Sostenibilità delle imprese si popola di dati certificati e il dossier verde di Illiria diventa argomento di gara.",
+      t: "Misurazione e scaling",
+      d: "Ogni trimestre si valutano i risultati del pilota: quante imprese aderiscono, quante avviano un percorso CSR, quante nuove imprese aderiscono alla value proposition che unisce welfare, competitività, territorio e cultura.",
     },
   ];
   return (
@@ -539,11 +569,10 @@ export function NextSteps() {
               07 · Avvio del progetto
             </p>
             <h2 className="font-display mt-3 text-[clamp(1.8rem,3.6vw,3rem)] font-extrabold leading-[1.02] tracking-tight text-ink">
-              Tre passi per mettere l'albero a dimora
+              Tre passi per avviare il pilota
             </h2>
             <p className="mt-5 max-w-md text-[15px] leading-relaxed text-sage">
-              Il modello non chiede salti nel buio: ogni passo usa risorse che il Gruppo possiede
-              già, e ogni passo produce metriche verificabili prima di passare al successivo.
+              Il modello è sfidante ma senza salti nel buio: ogni step utilizza risorse di fiducia che il Gruppo possiede già, ogni avanzamento è misurabile dai risultati che si manifestano contestualmente alle attività.
             </p>
           </div>
           <div className="space-y-3">
@@ -580,14 +609,26 @@ export function Footer() {
             Illiria, Startup Innovativa e imprese clienti, a beneficio dell'ecosistema locale.
           </p>
         </div>
-        <div className="space-y-1.5 lg:text-right">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-            Documento di presentazione · uso riservato
-          </p>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-dim">
-            Le metriche si ricalcolano in tempo reale sulla plancia
-          </p>
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-sage">
+        <div className="space-y-2 lg:text-right">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 lg:justify-end">
+            {[
+              "SIMULATORE IMPATTO",
+              "STAKEHOLDER COINVOLTI",
+              "PARTNERSHIP PILOTA",
+              "DATA PRODUCT & INNOVAZIONE",
+            ].map((label) => (
+              <a
+                key={label}
+                href="https://example.com"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[12.5px] font-black uppercase tracking-wider text-[#ffffff] transition-colors hover:text-[#e4e4e7] hover:underline"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-sage pt-1">
             Gruppo Illiria · {new Date().getFullYear()}
           </p>
         </div>

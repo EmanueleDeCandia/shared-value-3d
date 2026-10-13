@@ -128,7 +128,7 @@ export const INPUTS: InputDef[] = [
     group: "logistica",
     weight: 0.65,
     concept:
-      "I chilometri che un corriere dedicato percorrerebbe per ogni consegna. I furgoni Illiria, già in giro per i rifornimenti, li azzerano: questa radice misura la strada che non viene consumata.",
+      "I chilometri medi che il produttore locale farebbe per ogni consegna in proprio. I mezzi Illiria che condividono lo stesso percorso logistico per i rifornimenti li azzera. Questa radice misura i km evitati.",
     feeds: ["m10", "m11"],
   },
   {
@@ -212,7 +212,7 @@ export const INPUT_BY_KEY: Record<InputKey, InputDef> = Object.fromEntries(
 export const CONSTANTS_TEXT = [
   { label: "Buono soggiorno e agriturismo", value: "50 euro a lavoratore" },
   { label: "Buono ristorazione e degustazione", value: "25 euro a lavoratore" },
-  { label: "Scontrino medio del cesto contadino", value: "30 euro a ordine" },
+  { label: "Scontrino medio del cesto a Km 0", value: "30 euro a ordine" },
   { label: "Copertura biglietti spettacolo", value: "25 euro, interamente a carico della Startup" },
   { label: "Biglietti per beneficiario", value: "due: lavoratore più accompagnatore" },
   { label: "Moltiplicatore della spesa sul territorio", value: "due euro e mezzo per ogni euro di buono" },
@@ -300,7 +300,7 @@ export const METRICS: MetricDef[] = [
     branch: 1,
     fmt: "int",
     concept:
-      "Gli ordini dell'anno, tutti trasportati con sinergie di scopo della flotta che i furgoni Illiria compiono comunque per rifornire i distributori.",
+      "Gli ordini dell'anno, tutti trasportati con sinergie di scopo della flotta: i mezzi Illiria compiono già questi tragitti per rifornimenti verso OCS e distributori.",
     origin: "Nasce dagli acquirenti moltiplicati per gli ordini che ciascuno ripete in un anno.",
     roots: ["aziende", "dip", "km0", "freq"],
   },
@@ -312,7 +312,7 @@ export const METRICS: MetricDef[] = [
     fmt: "eur",
     concept:
       "Il valore che arriva direttamente a produttori enogastronomici a Km 0: aziende agricole, botteghe e cantine locali: un nuovo mercato, senza le intermediazioni che superano dell'80% il valore aggiunto sul prezzo finale, senza costi di trasporto e ad impatto marginale per l'ambiente annullato.",
-    origin: "Nasce dalle consegne annue valorizzate allo scontrino medio del cesto contadino.",
+    origin: "Nasce dalle consegne annue valorizzate allo scontrino medio del cesto a Km 0.",
     roots: ["aziende", "dip", "km0", "freq"],
   },
   {
@@ -515,30 +515,30 @@ export const BRANCHES: BranchDef[] = [
   },
   {
     id: 1,
-    title: "Filiera contadina a emissioni aggiuntive nulle",
+    title: "Filiera Corta a emissioni aggiuntive nulle",
     tag: "Logistica condivisa",
     concept:
-      "I dipendenti ordinano cesti di prodotti locali via piattaforma. La flotta consegna senza alcuna variazione del percorso pianificato per il rifornimento OCS o distributori, prelevandoli su uno o due punti di prelievo del tragitto e li consegnano sul posto di lavoro. Nessun kilometro extra: costo di trasporto azzerato per i produttori ed emissioni dedicate annullate. L'impatto ambientale marginale è di fatto zero. Uno dei rari casi in cui sia l'impatto fisico è alto, la comunicazione ambientale ad alta risonanza e senza dubbi di greenwashing.",
+      "I dipendenti ordinano cesti di prodotti locali via piattaforma. La flotta consegna senza alcuna variazione del percorso pianificato per il rifornimento OCS o distributori, ritirandoli presso uno o due punti di raccolta lungo il tragitto e li consegnano sul posto di lavoro. Nessun kilometro extra: costo di trasporto azzerato per i produttori ed emissioni dedicate annullate. L'impatto ambientale marginale è di fatto zero. Uno dei rari casi in cui significativa riduzione delle emissioni e comunicazione ambientale hanno alta risonanza senza dubbi di greenwashing.",
     ritorno:
-      "Si crea un dossier certificato di compensazione delle emissioni e di logistica verde, spendibile con punteggi tecnici premianti nei capitolati di gara pubblici e privati.",
+      "E' utilizzabile in svariate attività: dall'ufficio stampa alla comunicazione integrata di marketing sociale, incluse attività per la presentazione di offerte per la partecipazione a bandi di gara pubblici e privati.",
   },
   {
     id: 2,
     title: "Fondo biglietti, Matching Grant e Ospitalità locale",
     tag: "Leva della Startup",
     concept:
-      "La Startup copre interamente i biglietti di spettacoli ed eventi culturali, venticinque euro per il dipendente e per il suo accompagnatore. Il biglietto è abbinato ad ogni Voucher di Welfare Aziendale erogato per soggiorno e ristorazione: il weekend sul territorio avviene a costi vivi minimi e accende una spesa accessoria che moltiplica il valore per due e mezzo.",
+      "La Startup copre interamente i biglietti di spettacoli ed eventi culturali, venticinque euro per il dipendente e per il suo accompagnatore. Il biglietto è abbinato al valore di ogni Voucher di Welfare Aziendale erogato per soggiorno e ristorazione: il soggiorno sul territorio avviene a costi accessibili e traina una spesa accessoria che moltiplica il valore per due e mezzo.",
     ritorno:
-      "Visibilità e co-branding per Illiria come promotore ufficiale dell'esperienza nel tempo libero dei lavoratori.",
+      "Visibilità e co-branding per Gruppo Illiria come promotore dell'esperienza culturale nel tempo libero dei lavoratori.",
   },
   {
     id: 3,
-    title: "Cultura, spettacolo e rendicontazione ESG",
+    title: "Cultura, spettacolo e rendicontazione CSR ",
     tag: "Impatto certificato",
     concept:
-      "Ogni evento è una rassegna di sei o otto spettacoli in comuni diversi: retribuisce in media venti artisti e attrae circa mille spettatori aggiuntivi rispetto ai beneficiari di Welfare aziendale con campagne di advertising. Le imprese coinvolte nel programma di Welfare hanno la visibilità creata dagli sponsor che finanziano il budget media per la campagne. In questo modo anche le piccole imprese hanno visibilità per dare risalto ai risultati che tradizionalmente non riescono a fare. La Startup le supporta per definire schemi CSRD di EFRAG per PMI (Bilancio di Sostenibilità), indicatori ESG, o il modello Integrated Reporting <IR> dell'IFRS Sustainability Disclosure Standards con metriche oggettive e certificabili.",
+      "Ogni evento è una rassegna di sei o otto spettacoli in comuni diversi: retribuisce in media venti artisti e attrae circa mille spettatori aggiuntivi rispetto ai beneficiari di Welfare aziendale con campagne di advertising. Le imprese coinvolte nel programma hanno la visibilità creata dagli sponsor che finanziano il budget media per la campagne. In questo modo anche le piccole imprese possono dare risalto ai risultati che spesso prevedono budget media elevati difficili da sostenere. La Startup le supporta negli schemi volontari della CSRD di EFRAG o con l'Integrated Reporting <IR> dell'IFRS Sustainability Disclosure Standards.",
     ritorno:
-      "Una piattaforma di PR e CSR congiunta, con casi operativi documentati a supporto della rete commerciale nelle gare e nelle offerte integrate.",
+      "Risorse e materaili per atttività PR e CSR congiunta, con casi operativi documentati a supporto delle relazioni istituzionali e della rete commerciale.",
   },
   {
     id: 4,
@@ -547,7 +547,7 @@ export const BRANCHES: BranchDef[] = [
     concept:
       "Al termine dell'esperienza il dipendente riceve il Certificato Welfare e Impatto e invita i colleghi di altre aziende a chiedere al proprio ufficio HR l'attivazione della convenzione. Le direzioni HR ricevono richieste spontanee dal basso. Disdire il servizio OCS o distributori significherebbe revocare il benefit ai dipendenti: una barriera all'uscita che protegge il portafoglio.",
     ritorno:
-      "Acquisizione di nuovi clienti enterprise a costo commerciale zero e fidelizzazione del portafoglio esistente: il churn crolla perché il cliente non vuole perdere il welfare.",
+      "Contattti con potenziali nuovi clienti enterprise e fidelizzazione del portafoglio esistente: il churn rate si riduce perché i dipendenti non vogliono perdere i benefici derivati dal programma.",
   },
 ];
 
@@ -587,37 +587,37 @@ export const PARTNERS: PartnerDef[] = [
     name: "Gruppo Illiria",
     role: "Abilitatore territoriale",
     gives:
-      "Portafoglio clienti consolidato, relazioni fiduciarie con le direzioni HR e logistica dell'ultimo miglio: i furgoni già in strada per manutenzione e rifornimento dei distributori.",
+      "Portafoglio clienti, autorevolezza di un impresa storica e logistica dell'ultimo miglio. Accoglie nel proprio portafoglio la partnership della startup per generare valore condiviso in Aree Interne.",
     gets:
-      "Posizionamento strategico al tavolo HR, dossier ESG spendibile nelle gare, acquisizione a costo zero, portafoglio protetto dall'abbandono.",
+      "Rafforzamento della forza negoziale con i clienti, documenti tecnici CSRD valevoli nei contratti pubblici, go to market facilitato per coinvolgere grandi imprese, fidelizzazione dei clienti attuali, estensione del posizionamento competitivo attento al territorio e alle persone, forte differenziazione dai competitors.",
     highlight: true,
-    badge: "Investimento monetario diretto: 0 euro",
+    badge: "Investimento monetario: non necessario",
   },
   {
     name: "Startup Innovativa",
-    role: "Motore tecnologico e finanziario",
+    role: "Motore di accelerazione",
     gives:
-      "Piattaforma cloud per emissione, validazione e riscatto dei voucher, accreditamento della rete territoriale, fondo per la copertura integrale dei biglietti, strumenti di crescita e passaparola.",
-    gets: "Un canale di distribuzione enterprise già caldo e una rete territoriale accreditata e attiva.",
+      "Piattaforma tecnologica di welfare integrato con cultura, fondo per la copertura integrale dei biglietti, tool digitali di incremento adozioni, comunicazione delle Best Practice delle imprese clienti.",
+    gets: "Creazione di cluster pubblico-privati orientati allo Shared Value, in cui innovazioni dei modelli di business creano valore economico per i promotori e nuovi profitti in settori caratterizzati da marginalità economica e perdita strutturale.",
   },
   {
     name: "Imprese clienti",
     role: "Finanziatrici del welfare",
-    gives: "Budget già deducibili destinati al welfare dei propri dipendenti, senza costi aggiuntivi di struttura.",
+    gives: "Budget per addetti, deducibili fiscalmente, destinati al welfare dei propri dipendenti, senza nessun altro costo aggiuntivo per ogni altra attività prevista.",
     gets:
-      "Dipendenti più legati all'azienda, metriche certificate per il Bilancio di Sostenibilità, convenzione richiesta dal basso.",
+      "Promotori di un alto impatto locale condiviso con risorse economiche irrilevanti, dipendenti più soddisfatti dell'azienda, tool web e martech per la visibilità, supporto all'adozione dei benefici del welfare aziendale, all'integrazione di strategie di RSI, diffussione di Best Practice aziendali.",
   },
   {
     name: "Lavoratori",
     role: "Fruitori e ambasciatori",
-    gives: "Partecipazione alle esperienze e passaparola verso i colleghi di altre aziende, con il Certificato Welfare e Impatto in mano.",
-    gets: "Spesa contadina, tempo libero, ospitalità e cultura a costi vivi minimi, sul proprio territorio.",
+    gives: "Adesione al servizio, partecipazione alle esperienze e passaparola verso amici e colleghi di altre aziende, diffusione e promozione del Certificato del Welfare ad Impatto locale.",
+    gets: "Raddoppio del valore del Voucher di welfare con Biglietti in omaggio per due persone, maggiore potere d'acquisto per beni di qualità a km 0 senza muoversi da casa; più esperienze ricreative e culturali sul proprio territorio, gratificazione di sentirsi parte attiva nella coesione locale.",
   },
   {
     name: "Ecosistema territoriale",
     role: "Rete dell'offerta",
-    gives: "Produttori agricoli, hotel e agriturismi, ristorazione, artisti e compagnie di spettacolo: l'offerta che rende vera l'esperienza.",
-    gets: "Domanda ricorrente e programmabile, incassi senza intermediari, pubblico nuovo per la cultura.",
+    gives: "Fiducia, collaborazione e adesione al programma tra atttività generalmente sconnesse: produttori agricoli, hotel e agriturismi, ristorazione, artisti e compagnie di spettacolo.",
+    gets: "Generazione di domanda turistica e commerciale aggiuntiva, ricorrente e programmabile in Aree Interne con problemi di spopolamento e marginalità economica; utilizzo gratuito del set di tecnologie digitali; visibilità e maggiori opportunità per artisti emergenti dello spettacolo dal vivo.",
   },
 ];
 
@@ -719,45 +719,45 @@ export const PRESETS: { id: string; label: string; note: string; values: InputVa
   {
     id: "base",
     label: "Scenario base",
-    note: "I parametri di riferimento del progetto",
+    note: "I parametri di riferimento per un evento",
     values: DEF_INPUTS,
   },
   {
     id: "prudente",
     label: "Scenario prudenziale",
-    note: "Avvio su perimetro ridotto e adozioni caute",
+    note: "Avvio su perimetro ridotto con adozioni caute",
     values: {
-      aziende: 60,
-      dip: 20,
-      hotel: 10,
+      aziende: 100,
+      dip: 25,
+      hotel: 15,
       aper: 15,
-      km0: 12,
-      freq: 4,
+      km0: 10,
+      freq: 3,
       km: 30,
       churnA: 10,
-      churnB: 5,
+      churnB: 3,
       prospect: 20,
-      chiusura: 15,
-      clv: 1000,
+      chiusura: 20,
+      clv: 1250,
     },
   },
   {
     id: "ambizioso",
-    label: "Scenario ambizioso",
-    note: "Rete a pieno regime entro il secondo anno",
+    label: "Scenario regionale",
+    note: "Due eventi per ogni Provincia della Regione",
     values: {
-      aziende: 300,
-      dip: 45,
-      hotel: 30,
-      aper: 40,
-      km0: 35,
+      aziende: 250,
+      dip: 35,
+      hotel: 20,
+      aper: 35,
+      km0: 20,
       freq: 9,
-      km: 80,
-      churnA: 12,
-      churnB: 1,
-      prospect: 45,
-      chiusura: 30,
-      clv: 2000,
+      km: 60,
+      churnA: 10,
+      churnB: 2,
+      prospect: 30,
+      chiusura: 25,
+      clv: 1750,
     },
   },
 ];

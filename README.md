@@ -124,7 +124,7 @@ Tutti i valori sono calcolati sui parametri di default definiti al §3:
 * **Impatto Sociale e Persone:** 4.500 lavoratori raggiunti; 2.250 biglietti per spettacoli erogati; 20 artisti/evento retribuiti.
 * **Impatto Ambientale:** 270.000 km di logistica neutralizzati; **51,3 tonnellate di CO₂ evitate**.
 * **Impatto Territoriale:** € 162.000 fatturato agricolo; € 160.313 spesa indotta locale; € 56.250 Matching Grant coperto da Startup (**€ 378.563 Valore Ecosistema**).
-* **Ritorno Economico e Commerciale (Gruppo Vending):**
+* **Impatto Commerciale (Gruppo Vending):**
   * Tasso di abbandono (Churn) abbattuto dal 10% al 2% (**−80%**).
   * 12 imprese clienti trattenute (€ 144.000 valore preservato).
   * 17 nuovi contratti aziendali sottoscritti a CAC pari a zero.

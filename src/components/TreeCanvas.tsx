@@ -840,7 +840,7 @@ export default function TreeCanvas() {
     { label: "Tronco · patto tra partner", count: "1", color: "#8a6a45", sel: { type: "trunk", id: "trunk" } },
     { label: "Rami · meccaniche operative", count: "5", color: "#8fbf6a", sel: { type: "branch", id: "0" } },
     { label: "Chioma · adozione dei lavoratori", count: "—", color: "#c4e08a", sel: { type: "leaves", id: "leaves" } },
-    { label: "Frutti · metriche di risultato", count: "23", color: "#e8b54a", sel: { type: "fruit", id: "m12" } },
+    { label: "Frutti · metriche di risultato", count: "23", color: "#ffffff", sel: { type: "fruit", id: "m12" } },
   ];
 
   return (
@@ -860,10 +860,8 @@ export default function TreeCanvas() {
           <br />
           <span className="text-amber">Valore Condiviso</span>
         </h1>
-        <p className="mt-4 hidden max-w-md text-[15px] leading-relaxed text-sage md:block">
-          Un modello in cui la competitività del Gruppo e il benessere del territorio crescono dallo
-          stesso tronco. Esploralo: ogni radice, ogni ramo e ogni frutto risponde al clic con i suoi
-          dati e i suoi concetti.
+        <p className="mt-4 max-w-md text-[14.5px] sm:text-[15px] leading-relaxed text-sage">
+          Dodici parametri governano l'intero modello: popolazione servita, tassi di adozione, tratte logistiche e dinamica commerciale. Ogni modifica ricalcola all'istante tutte le ventitré metriche e ridisegna l'albero. Premi l'indicatore per aprire la scheda.
         </p>
         <div className="mt-5 flex flex-wrap gap-2.5">
           {[
@@ -897,11 +895,10 @@ export default function TreeCanvas() {
               <li key={lg.label}>
                 <button
                   onClick={() => store.select(lg.sel)}
-                  className={`group flex w-full items-center gap-2.5 border px-2.5 py-1.5 text-left transition-colors ${
-                    active
-                      ? "border-amber/50 bg-moss-800"
-                      : "border-transparent hover:border-line hover:bg-moss-900/80"
-                  }`}
+                  className={`group flex w-full items-center gap-2.5 border px-2.5 py-1.5 text-left transition-colors ${active
+                    ? "border-amber/50 bg-moss-800"
+                    : "border-transparent hover:border-line hover:bg-moss-900/80"
+                    }`}
                 >
                   <span
                     className="inline-block h-2 w-2 rounded-full transition-transform group-hover:scale-125"
@@ -918,8 +915,30 @@ export default function TreeCanvas() {
         </ul>
       </div>
 
-      {/* suggerimento */}
-      <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 hidden w-max -translate-x-1/2 font-mono text-[10.5px] uppercase tracking-[0.18em] text-dim md:block">
+      {/* freccia per scendere (spostata di 15mm verso le schede a sinistra) */}
+      <div className="absolute bottom-11 left-1/2 z-20 -translate-x-[calc(50%+15mm)]">
+        <a
+          href="#premessa"
+          aria-label="Scorri in basso per continuare la presentazione"
+          className="group flex flex-col items-center gap-1 rounded-full border border-amber/40 bg-moss-900/90 px-3.5 py-1.5 backdrop-blur shadow-lg shadow-black/40 transition-all hover:scale-105 hover:border-amber hover:bg-moss-800"
+        >
+          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-soft group-hover:text-amber">
+            Scorri per esplorare
+          </span>
+          <svg
+            className="h-4 w-4 animate-bounce text-amber transition-transform group-hover:translate-y-0.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7m14-8l-7 7-7-7" />
+          </svg>
+        </a>
+      </div>
+
+      {/* suggerimento navigazione */}
+      <p className="pointer-events-none absolute bottom-4 left-1/2 z-10 hidden w-max -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.18em] text-dim md:block">
         trascina per orbitare · rotellina o pinch per lo zoom · doppio clic per recentrare
       </p>
 
@@ -927,19 +946,17 @@ export default function TreeCanvas() {
       <div className="absolute right-4 top-20 z-20 sm:right-6">
         <button
           onClick={() => setIndexOpen((v) => !v)}
-          className={`border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
-            indexOpen
-              ? "border-amber bg-amber text-moss-950"
-              : "border-line bg-moss-900/90 text-sage hover:border-amber/60 hover:text-ink"
-          }`}
+          className={`border-2 px-4 py-2 font-mono text-[11.5px] font-bold uppercase tracking-[0.18em] shadow-lg transition-all ${indexOpen
+            ? "border-white bg-white text-moss-950 shadow-white/20"
+            : "border-white/90 bg-white/95 text-moss-950 shadow-black/60 ring-2 ring-white/30 hover:scale-105 hover:bg-white hover:text-black"
+            }`}
         >
           {indexOpen ? "Chiudi indice" : "Indice dell'albero"}
         </button>
       </div>
       <aside
-        className={`absolute bottom-0 right-0 top-0 z-10 w-[300px] max-w-[86vw] overflow-y-auto border-l border-line bg-moss-900/97 py-24 transition-transform duration-300 ${
-          indexOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`absolute bottom-0 right-0 top-0 z-10 w-[310px] max-w-[86vw] overflow-y-auto border-l border-line bg-moss-900/98 pb-24 pt-36 transition-transform duration-300 ${indexOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <IndexList onSelect={() => setIndexOpen(window.innerWidth < 1024 ? false : true)} />
       </aside>
@@ -969,9 +986,8 @@ function IndexList({ onSelect }: { onSelect: () => void }) {
           store.select(sel);
           onSelect();
         }}
-        className={`flex w-full items-center gap-2 px-4 py-[7px] text-left transition-colors ${
-          active ? "bg-moss-700" : "hover:bg-moss-800"
-        }`}
+        className={`flex w-full items-center gap-2 px-4 py-[7px] text-left transition-colors ${active ? "bg-moss-700" : "hover:bg-moss-800"
+          }`}
       >
         <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: dot }} />
         <span className={`min-w-0 flex-1 truncate text-[12.5px] ${active ? "text-amber-soft" : "text-sage"}`}>
@@ -1024,7 +1040,7 @@ function IndexList({ onSelect }: { onSelect: () => void }) {
         <Row
           key={m.id}
           sel={{ type: "fruit", id: m.id }}
-          dot="#e8b54a"
+          dot={m.area === "illiria" ? "#ef4444" : m.area === "ambientale" ? "#7fb6a4" : m.area === "territoriale" ? "#8fbf6a" : m.area === "cultura" ? "#e39a6b" : "#ffffff"}
           label={m.label}
           value={formatValue(m.fmt, model.values[m.id] ?? 0)}
         />

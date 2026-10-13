@@ -14,7 +14,7 @@ export function fmtInt(v: number): string {
 }
 
 export function fmtEur(v: number): string {
-  return "€ " + eurFmt.format(Math.round(v));
+  return "€\u00A0" + eurFmt.format(Math.round(v));
 }
 
 export function fmtKm(v: number): string {

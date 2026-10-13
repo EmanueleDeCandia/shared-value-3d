@@ -81,7 +81,7 @@ export default function Simulator() {
             <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-sage">
               Dodici parametri governano l'intero modello: popolazione servita, tassi di adozione,
               tratte logistiche e dinamica commerciale. Ogni modifica ricalcola all'istante tutte le
-              ventitré metriche e ridisegna l'albero.
+              ventitré metriche e ridisegna l'albero. Premi l'indicatore per aprire la scheda.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -132,9 +132,8 @@ export default function Simulator() {
                 {strip.map((s, i) => (
                   <li
                     key={s.l}
-                    className={`flex items-baseline justify-between gap-3 px-4 py-2.5 ${
-                      i > 0 ? "border-t border-line-soft" : ""
-                    }`}
+                    className={`flex items-baseline justify-between gap-3 px-4 py-2.5 ${i > 0 ? "border-t border-line-soft" : ""
+                      }`}
                   >
                     <span className="text-[12.5px] text-sage">{s.l}</span>
                     <span className="value-flash font-mono text-[14px] font-semibold text-amber-soft" key={s.v}>
@@ -144,8 +143,7 @@ export default function Simulator() {
                 ))}
               </ul>
               <p className="border-t border-amber/25 px-4 py-3 text-[12px] leading-relaxed text-dim">
-                Il calcolo segue le regole del modello: l'abbandono evitato non scende sotto lo zero
-                e ogni buono attiva il moltiplicatore territoriale.
+                Le assunzioni sono conservative per favorire la trasparenza e l'unità di misura delle stime è un solo evento da 6 a 8 spettacoli in un mese. A regime gli eventi in programma sono 2 in ogni Provincia della Regione Marche per un totale di 10.
               </p>
             </div>
             <button

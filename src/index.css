@@ -17,8 +17,8 @@
   --color-sage: #a9b9a1;
   --color-dim: #77876f;
 
-  --color-amber: #e8b54a;
-  --color-amber-soft: #f2ce7e;
+  --color-amber: #ffffff;
+  --color-amber-soft: #f4f4f5;
   --color-leaf: #8fbf6a;
   --color-leaf-bright: #c4e08a;
   --color-ochre: #c08a4f;
@@ -55,20 +55,25 @@ body::after {
   color: #171106;
 }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #ffffff var(--color-moss-950);
+}
+
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-moss-950);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2c3a30;
+  background: #ffffff;
   border-radius: 8px;
   border: 2px solid var(--color-moss-950);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3d5044;
+  background: #e4e4e7;
 }
 
 :focus-visible {

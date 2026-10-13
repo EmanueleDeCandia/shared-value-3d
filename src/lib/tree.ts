@@ -129,11 +129,11 @@ function norm(v: Vec): Vec {
 const UP: Vec = { x: 0, y: 1, z: 0 };
 
 export const AREA_COLORS: Record<AreaId, { base: string; glow: string }> = {
-  sociale: { base: hsl(40, 72, 58), glow: hsl(43, 85, 68) },
+  sociale: { base: hsl(40, 20, 94), glow: hsl(40, 30, 98) },
   ambientale: { base: hsl(163, 32, 58), glow: hsl(163, 45, 70) },
   territoriale: { base: hsl(88, 42, 56), glow: hsl(92, 55, 68) },
   cultura: { base: hsl(24, 62, 60), glow: hsl(28, 78, 72) },
-  illiria: { base: hsl(45, 80, 66), glow: hsl(48, 92, 78) },
+  illiria: { base: hsl(0, 84, 60), glow: hsl(0, 92, 72) },
 };
 
 const LEAF_COLORS = [
