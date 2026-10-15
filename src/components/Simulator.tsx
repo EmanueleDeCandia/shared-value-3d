@@ -62,7 +62,7 @@ export default function Simulator() {
     { l: "Fatturato filiera", v: formatValue("eur", model.values["m9"]) },
     { l: "Emissioni evitate", v: formatValue("t", model.values["m11"]) },
     { l: "Nuovi contratti", v: formatValue("int", model.values["m17"]) },
-    { l: "Valore complessivo", v: formatValue("eur", model.values["m20"]) },
+    { l: "Valore Promotore", v: formatValue("eur", model.values["m20"]) },
   ];
 
   return (

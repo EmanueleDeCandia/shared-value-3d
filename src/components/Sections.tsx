@@ -18,7 +18,7 @@ export function Header() {
   const items = [
     ["Valore per l'ecosistema", formatValue("eur", model.values["m12"])],
     ["Emissioni evitate", formatValue("t", model.values["m11"])],
-    ["Valore complessivo", formatValue("eur", model.values["m20"])],
+    ["Valore Promotore", formatValue("eur", model.values["m20"])],
     ["Abbandono clienti", `da ${fmtInt(store.inputs.churnA)}% a ${fmtInt(store.inputs.churnB)}%`],
     ["Nuovi contratti", formatValue("int", model.values["m17"])],
     ["Investimento monetario Illiria", "fiducia"],
@@ -506,7 +506,7 @@ export function Dashboard() {
           <div className="rv bg-moss-900 p-7 lg:col-span-12" style={{ "--rv-delay": "200ms" } as React.CSSProperties}>
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">
-                Valore complessivo · Gruppo Illiria
+                Valore Promotore · Gruppo Illiria
               </p>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">
                 investimento monetario diretto <span className="font-semibold text-amber">non necessario</span>
@@ -534,7 +534,7 @@ export function Dashboard() {
               <div className="border border-amber/40 bg-amber/5 p-4 sm:p-5">
                 <Num value={v["m20"]} format={(x) => fmtEur(x)} big />
                 <p className="mt-1.5 text-[13px] text-amber-soft">
-                  valore complessivo, generato e protetto
+                  valore promotore, generato e protetto
                 </p>
               </div>
             </div>

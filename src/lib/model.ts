@@ -477,7 +477,7 @@ export const METRICS: MetricDef[] = [
   },
   {
     id: "m20",
-    label: "Valore complessivo",
+    label: "Valore Promotore",
     area: "illiria",
     branch: 4,
     fmt: "eur",
