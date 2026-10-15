@@ -114,7 +114,7 @@ Tutti i valori sono calcolati sui parametri di default definiti al §3:
 | 17 | Nuovi contratti firmati | $\text{Prospect} \times \text{Tasso Chiusura}$ | $84{,}375 \times 20\%$ | **17** |
 | 18 | Imprese clienti trattenute | $\text{Aziende} \times (\text{ChurnA} - \text{ChurnB})$ | $150 \times (10\% - 2\%)$ | **12** |
 | 19 | Valore preservato dalla retention | $\text{Fidelizzate} \times \text{CLV}$ | $12 \times 1.250$ | **€ 15.000** |
-| 20 | Valore commerciale complessivo | $(\text{Fidelizzate} + \text{Nuovi Contratti}) \times \text{CLV}$ | $(12 + 16{,}875) \times 1.250$ | **€ 36.094** |
+| 20 | Valore complessivo | $(\text{Fidelizzate} + \text{Nuovi Contratti}) \times \text{CLV}$ | $(12 + 16{,}875) \times 1.250$ | **€ 36.094** |
 | 21 | Riduzione dell'abbandono | $\frac{\text{ChurnA} - \text{ChurnB}}{\text{ChurnA}}$ | $\frac{10 - 2}{10}$ | **−80%** |
 
 ---

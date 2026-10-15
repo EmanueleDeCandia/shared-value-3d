@@ -1,0 +1,21 @@
+{
+  "name": "shared-value-core",
+  "version": "1.0.0",
+  "description": "Single Source of Truth (SSOT) per costanti, scenari, formule e parametri matematici di Shared Value & Welfare Territoriale",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

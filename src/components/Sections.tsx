@@ -5,6 +5,7 @@ import {
   BRANCHES,
   METRICS,
   CONSTANTS_TEXT,
+  APP_URLS,
   type MetricDef,
 } from "../lib/model";
 import { formatValue, fmtInt, fmtEur } from "../lib/format";
@@ -17,7 +18,7 @@ export function Header() {
   const items = [
     ["Valore per l'ecosistema", formatValue("eur", model.values["m12"])],
     ["Emissioni evitate", formatValue("t", model.values["m11"])],
-    ["Valore commerciale", formatValue("eur", model.values["m20"])],
+    ["Valore complessivo", formatValue("eur", model.values["m20"])],
     ["Abbandono clienti", `da ${fmtInt(store.inputs.churnA)}% a ${fmtInt(store.inputs.churnB)}%`],
     ["Nuovi contratti", formatValue("int", model.values["m17"])],
     ["Investimento monetario Illiria", "fiducia"],
@@ -53,12 +54,24 @@ export function Header() {
             </a>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-2 lg:ml-6">
-          <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-amber" />
-          <span className="font-mono text-[11px] text-sage">
-            <span className="hidden sm:inline">modello attivo · </span>
-            <span className="text-amber-soft">{formatValue("eur", model.values["m12"])}</span>
-          </span>
+        <div className="ml-auto flex items-center gap-3 lg:ml-6">
+          <a
+            href={APP_URLS.CLIENTS_LANDING_PAGE}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[11px] font-semibold text-amber transition-all hover:bg-amber/20 hover:text-amber-light shadow-sm"
+            title="Apri la proposta per le Imprese Clienti (Landing Page & Reporting ESG)"
+          >
+            <span>Proposta Clienti</span>
+            <span className="text-[10px]">↗</span>
+          </a>
+          <div className="hidden sm:flex items-center gap-2">
+            <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-amber" />
+            <span className="font-mono text-[11px] text-sage">
+              <span>modello attivo · </span>
+              <span className="text-amber-soft">{formatValue("eur", model.values["m12"])}</span>
+            </span>
+          </div>
         </div>
       </div>
       <div className="overflow-hidden border-t border-line-soft bg-moss-900">
@@ -100,8 +113,8 @@ export function Premessa() {
             </h2>
             <p className="mt-6 max-w-2xl text-[15.5px] leading-relaxed text-sage">
               Il progetto trasforma tre risorse esistenti: il portafoglio clienti di Illiria, la sua logistica quotidiana e i budget minimi
-              che le imprese erogano per i benefit ai dipendenti in promozione dello sviluppo locale. Moltiplica i benefici che le imprese
-              clienti destinano ai propri lavoratori con budget della startup, crea vantaggi competitivi per i clienti, abilitando le aziende
+              che le imprese erogano per i benefit ai dipendenti in promozione dello sviluppo locale. Raddoppia i benefici che le imprese
+              clienti destinano ai propri lavoratori con il fondo Matching Grant della Startup Attuatore, crea vantaggi competitivi per i clienti, abilitando le aziende
               ad essere promotrici di impatto economico e sociale.
               <br />
               <br />
@@ -268,11 +281,10 @@ export function Flows() {
               key={b.id}
               onClick={() => {
                 store.select({ type: "branch", id: String(b.id) });
-                document.getElementById("albero")?.scrollIntoView({ behavior: "smooth" });
               }}
               className="rv group grid w-full gap-x-8 gap-y-4 border border-line-soft bg-moss-850 px-5 py-7 text-left transition-all hover:border-leaf/50 hover:bg-moss-800 md:grid-cols-[110px_1fr_340px] md:px-8"
               style={{ "--rv-delay": `${i * 70}ms` } as React.CSSProperties}
-              title="Apri questo ramo sull'albero"
+              title="Apri la scheda della meccanica"
             >
               <span className="ghost-num font-display text-[64px] font-extrabold leading-none md:text-[84px]">
                 {String(i + 1).padStart(2, "0")}
@@ -310,10 +322,9 @@ function MetricRow({ m, index }: { m: MetricDef; index: number }) {
     <button
       onClick={() => {
         store.select({ type: "fruit", id: m.id });
-        document.getElementById("albero")?.scrollIntoView({ behavior: "smooth" });
       }}
       className="group grid w-full grid-cols-[36px_1fr_auto] items-center gap-x-4 border-b border-line-soft px-3 py-3.5 text-left transition-colors hover:bg-moss-800 sm:grid-cols-[44px_240px_1fr_auto]"
-      title="Apri il frutto sull'albero"
+      title="Apri la scheda dell'indicatore"
     >
       <span className="font-mono text-[11px] text-dim">{String(index + 1).padStart(2, "0")}</span>
       <span className="min-w-0">
@@ -338,7 +349,7 @@ export function Results() {
     { title: "Frutti: Ambiente e logistica", color: "#7fb6a4", items: METRICS.filter((m) => m.area === "ambientale") },
     { title: "Frutti: Territorio e filiera", color: "#8fbf6a", items: METRICS.filter((m) => m.area === "territoriale") },
     { title: "Frutti: Cultura e spettacolo", color: "#e39a6b", items: METRICS.filter((m) => m.area === "cultura") },
-    { title: "Frutti: commerciali Gruppo Illiria", color: "#ef4444", items: METRICS.filter((m) => m.area === "illiria") },
+    { title: "Frutti: Impatto Gruppo Illiria", color: "#ef4444", items: METRICS.filter((m) => m.area === "illiria") },
   ];
   let idx = -1;
   return (
@@ -495,7 +506,7 @@ export function Dashboard() {
           <div className="rv bg-moss-900 p-7 lg:col-span-12" style={{ "--rv-delay": "200ms" } as React.CSSProperties}>
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-amber">
-                Impatto commerciale · Gruppo Illiria
+                Valore complessivo · Gruppo Illiria
               </p>
               <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-dim">
                 investimento monetario diretto <span className="font-semibold text-amber">non necessario</span>
@@ -523,7 +534,7 @@ export function Dashboard() {
               <div className="border border-amber/40 bg-amber/5 p-4 sm:p-5">
                 <Num value={v["m20"]} format={(x) => fmtEur(x)} big />
                 <p className="mt-1.5 text-[13px] text-amber-soft">
-                  valore commerciale complessivo, generato e protetto
+                  valore complessivo, generato e protetto
                 </p>
               </div>
             </div>
@@ -611,22 +622,32 @@ export function Footer() {
         </div>
         <div className="space-y-2 lg:text-right">
           <div className="flex flex-wrap gap-x-5 gap-y-2 lg:justify-end">
-            {[
-              "SIMULATORE IMPATTO",
-              "STAKEHOLDER COINVOLTI",
-              "PARTNERSHIP PILOTA",
-              "DATA PRODUCT & INNOVAZIONE",
-            ].map((label) => (
-              <a
-                key={label}
-                href="https://example.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[12.5px] font-black uppercase tracking-wider text-[#ffffff] transition-colors hover:text-[#e4e4e7] hover:underline"
-              >
-                {label}
-              </a>
-            ))}
+            <a
+              href={APP_URLS.CLIENTS_LANDING_PAGE}
+              target="_blank"
+              rel="noreferrer"
+              className="text-[12.5px] font-bold uppercase tracking-wider text-amber transition-colors hover:text-amber-light hover:underline"
+            >
+              Proposta Imprese Clienti &amp; ESG ↗
+            </a>
+            <a
+              href="#albero"
+              className="text-[12.5px] font-medium uppercase tracking-wider text-[#ffffff] transition-colors hover:text-[#e4e4e7] hover:underline"
+            >
+              L&apos;Albero 3D
+            </a>
+            <a
+              href="#plancia"
+              className="text-[12.5px] font-medium uppercase tracking-wider text-[#ffffff] transition-colors hover:text-[#e4e4e7] hover:underline"
+            >
+              Simulatore Plancia
+            </a>
+            <a
+              href="#partner"
+              className="text-[12.5px] font-medium uppercase tracking-wider text-[#ffffff] transition-colors hover:text-[#e4e4e7] hover:underline"
+            >
+              Stakeholder
+            </a>
           </div>
           <p className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-sage pt-1">
             Gruppo Illiria · {new Date().getFullYear()}

@@ -1,7 +1,17 @@
 /* ============================================================
    Modello dati del progetto Shared Value & Welfare Territoriale
    Partnership: Gruppo Illiria, Startup Innovativa, Imprese Clienti
+   Single Source of Truth: pacchetto shared-value-core
    ============================================================ */
+
+import {
+  INVARIANT_CONSTANTS,
+  SCENARIO_REGIME_200,
+  SCENARIO_PILOTA_150,
+  APP_URLS,
+} from "shared-value-core";
+
+export { INVARIANT_CONSTANTS, SCENARIO_REGIME_200, SCENARIO_PILOTA_150, APP_URLS };
 
 export type InputKey =
   | "aziende"
@@ -38,13 +48,13 @@ export const INPUTS: InputDef[] = [
     label: "Aziende clienti attive",
     unit: "imprese",
     min: 10,
-    max: 400,
+    max: 500,
     step: 5,
-    def: 150,
+    def: SCENARIO_REGIME_200.aziende, // 200 imprese
     group: "popolazione",
     weight: 1.0,
     concept:
-      "Le imprese del portafoglio Illiria che aderiscono alla convenzione di welfare aziendale a regime nella Regione Marche. Sono la prima radice dell'albero: più aziende partecipano, maggiore è l'effetto traino, più la misura si radica nel tessuto economico locale.",
+      "Le imprese del portafoglio Illiria che aderiscono alla convenzione di welfare aziendale a regime nell'Area Interna. Sono la prima radice dell'albero: più aziende partecipano, maggiore è l'effetto traino, più la misura si radica nel tessuto economico locale.",
     feeds: ["m1", "m18", "m20"],
   },
   {
@@ -52,13 +62,13 @@ export const INPUTS: InputDef[] = [
     label: "Dipendenti medi per azienda",
     unit: "persone",
     min: 5,
-    max: 120,
+    max: 200,
     step: 1,
-    def: 30,
+    def: SCENARIO_REGIME_200.dipendentiPerAzienda, // 40 addetti medi (8.000 lavoratori complessivi)
     group: "popolazione",
     weight: 0.95,
     concept:
-      "La taglia media di ogni impresa cliente. Definisce il numero medio di addetti che hanno diritto per obbligo normativo al benefit (non chi lo utilizza: vedi la % di adesione effettiva): è la radice che dà profondità alla popolazione servita.",
+      "La taglia media di ogni impresa cliente. Definisce il numero medio di addetti che hanno diritto per obbligo normativo al benefit: è la radice che dà profondità alla popolazione servita.",
     feeds: ["m1"],
   },
   {
@@ -68,7 +78,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 60,
     step: 1,
-    def: 16,
+    def: Math.round(SCENARIO_REGIME_200.tassoAdesioneHotel * 100), // 22%
     group: "adozione",
     weight: 0.8,
     concept:
@@ -82,7 +92,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 60,
     step: 1,
-    def: 25,
+    def: Math.round(SCENARIO_REGIME_200.tassoAdesioneFood * 100), // 32%
     group: "adozione",
     weight: 0.8,
     concept:
@@ -96,11 +106,11 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 60,
     step: 1,
-    def: 20,
+    def: Math.round(SCENARIO_REGIME_200.tassoAdozioneKm0 * 100), // 20%
     group: "adozione",
     weight: 0.85,
     concept:
-      "La quota di dipendenti che ordina cestini di almeno 30€ di prodotti a chilometro zero: risparmio di tempo necessario per fare la spesa di alta qualità favorendo produttori con basso accesso al mercato. Illiria crea sinergie e un forte impatto all'economia territoriale. Nota: soglie di acquisto minimo e tipo di prodotti devono essere complementari all'offerta Illiria.",
+      "La quota di dipendenti che ordina cestini da 30€ di prodotti a chilometro zero: risparmio di tempo necessario per fare la spesa di alta qualità favorendo produttori con basso accesso al mercato. Illiria crea sinergie e un forte impatto all'economia territoriale.",
     feeds: ["m7", "m8", "m9"],
   },
   {
@@ -110,11 +120,11 @@ export const INPUTS: InputDef[] = [
     min: 1,
     max: 12,
     step: 1,
-    def: 6,
+    def: SCENARIO_REGIME_200.frequenzaAcquistiKm0, // 6 ordini/anno
     group: "adozione",
     weight: 0.7,
     concept:
-      "Quante volte l'anno ciascun addetto delle imprese clienti ripete l'ordine del cesto a Km 0. La fedeltà dell'acquisto è ciò che trasforma l'iniziativa in reddito ricorrente per i produttori.",
+      "Quante volte l'anno ciascun addetto delle imprese clienti ripete l'ordine del cesto a Km 0 (cadenza ogni circa due mesi). La fedeltà dell'acquisto è ciò che trasforma l'iniziativa in reddito ricorrente per i produttori (9.600 panieri totali per 288.000 €).",
     feeds: ["m8", "m9"],
   },
   {
@@ -124,7 +134,7 @@ export const INPUTS: InputDef[] = [
     min: 10,
     max: 200,
     step: 5,
-    def: 50,
+    def: SCENARIO_REGIME_200.trattaLogisticaEvitataKm, // 50 km
     group: "logistica",
     weight: 0.65,
     concept:
@@ -138,7 +148,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 30,
     step: 1,
-    def: 10,
+    def: Math.round(SCENARIO_REGIME_200.churnRateAsIs * 100), // 10%
     group: "commerciale",
     weight: 0.75,
     concept:
@@ -152,7 +162,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 30,
     step: 1,
-    def: 2,
+    def: Math.round(SCENARIO_REGIME_200.churnRateToBe * 100), // 2%
     group: "commerciale",
     weight: 0.75,
     concept:
@@ -166,7 +176,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 60,
     step: 1,
-    def: 30,
+    def: Math.round(SCENARIO_REGIME_200.nuoviProspectRate * 100), // 40%
     group: "commerciale",
     weight: 0.7,
     concept:
@@ -180,7 +190,7 @@ export const INPUTS: InputDef[] = [
     min: 0,
     max: 60,
     step: 1,
-    def: 20,
+    def: Math.round(SCENARIO_REGIME_200.tassoChiusuraProspect * 100), // 28%
     group: "commerciale",
     weight: 0.7,
     concept:
@@ -191,10 +201,10 @@ export const INPUTS: InputDef[] = [
     key: "clv",
     label: "Customer Lifetime Value",
     unit: "€",
-    min: 1000,
-    max: 5000,
+    min: 500,
+    max: 15000,
     step: 50,
-    def: 1250,
+    def: 1500, // Scenario regionale prudenziale: 1.500 €
     group: "commerciale",
     weight: 0.9,
     concept:
@@ -210,15 +220,15 @@ export const INPUT_BY_KEY: Record<InputKey, InputDef> = Object.fromEntries(
 /* ---------------- costanti invarianti (solo testo) ---------------- */
 
 export const CONSTANTS_TEXT = [
-  { label: "Buono soggiorno e agriturismo", value: "50 euro a lavoratore" },
-  { label: "Buono ristorazione e degustazione", value: "25 euro a lavoratore" },
-  { label: "Scontrino medio del cesto a Km 0", value: "30 euro a ordine" },
-  { label: "Copertura biglietti spettacolo", value: "25 euro, interamente a carico della Startup" },
+  { label: "Buono soggiorno e agriturismo", value: `${INVARIANT_CONSTANTS.VOUCHER_HOTEL_EUR} euro a lavoratore` },
+  { label: "Buono ristorazione e degustazione", value: `${INVARIANT_CONSTANTS.VOUCHER_FOOD_EUR} euro a lavoratore` },
+  { label: "Scontrino medio del cesto a Km 0", value: `${INVARIANT_CONSTANTS.CESTO_KM0_EUR} euro a ordine` },
+  { label: "Copertura biglietti spettacolo", value: `${INVARIANT_CONSTANTS.MATCHING_GRANT_TICKET_EUR} euro, interamente a carico della Startup` },
   { label: "Biglietti per beneficiario", value: "due: lavoratore più accompagnatore" },
+  { label: "Moltiplicatore presenza a coppia", value: "due presenze per ciascun voucher (lavoratore + accompagnatore)" },
   { label: "Moltiplicatore della spesa sul territorio", value: "due euro e mezzo per ogni euro di buono" },
-  { label: "Quota di beneficiari che invita altri colleghi", value: "uno su quattro" },
-  { label: "Inviti medi per ambasciatore", value: "cinque" },
-  { label: "Conversione del passaparola", value: "uno su quattro" },
+  { label: "Quota di beneficiari che attiva passaparola", value: "35% (motore di viralità referenziata)" },
+  { label: "Inviti medi per ambasciatore", value: "sei persone" },
 ];
 
 /* ---------------- frutti: metriche di output ---------------- */
@@ -397,8 +407,8 @@ export const METRICS: MetricDef[] = [
     branch: 4,
     fmt: "int",
     concept:
-      "Un beneficiario su quattro, al termine dell'esperienza, riceve il Certificato Welfare e Impatto e diventa promotore presso colleghi di altre aziende.",
-    origin: "Nasce dai beneficiari attivi: uno su quattro si fa portavoce.",
+      "Il 35% dei beneficiari, al termine dell'esperienza, riceve il Certificato Welfare e Impatto e diventa promotore attivo presso colleghi di altre aziende.",
+    origin: "Nasce dai beneficiari attivi: circa uno su tre (35%) si fa portavoce.",
     roots: ["aziende", "dip", "hotel", "aper"],
   },
   {
@@ -408,8 +418,8 @@ export const METRICS: MetricDef[] = [
     branch: 4,
     fmt: "int",
     concept:
-      "Ogni ambasciatore invita in media cinque persone (amici, partner, colleghi o familiari) : è il passaparola organizzato che la piattaforma rende misurabile.",
-    origin: "Nasce dagli ambasciatori moltiplicati per gli inviti medi di ciascuno.",
+      "Ogni ambasciatore invita in media sei persone (amici, partner, colleghi o familiari): è il passaparola organizzato che la piattaforma rende misurabile.",
+    origin: "Nasce dagli ambasciatori moltiplicati per i sei inviti medi di ciascuno.",
     roots: ["aziende", "dip", "hotel", "aper"],
   },
   {
@@ -419,8 +429,8 @@ export const METRICS: MetricDef[] = [
     branch: 4,
     fmt: "k",
     concept:
-      "Il motore di crescita del modello: ogni cento beneficiari, il passaparola ne attiva trentuno di nuovi nelle aziende vicine. Un volano che gira da solo.",
-    origin: "Nasce dalla quota di chi invita, per gli inviti di ciascuno, per la conversione del passaparola. È una costante del modello: il volano è progettato, non sperato.",
+      "Il motore di crescita del modello: il passaparola strutturato diffonde la misura tra le imprese vicine del territorio. Un volano che gira da solo.",
+    origin: "Nasce dalla quota di ambasciatori (35%), per gli inviti di ciascuno (6), per la conversione del passaparola.",
     roots: [],
   },
   {
@@ -467,7 +477,7 @@ export const METRICS: MetricDef[] = [
   },
   {
     id: "m20",
-    label: "Valore commerciale complessivo",
+    label: "Valore complessivo",
     area: "illiria",
     branch: 4,
     fmt: "eur",
@@ -594,11 +604,11 @@ export const PARTNERS: PartnerDef[] = [
     badge: "Investimento monetario: non necessario",
   },
   {
-    name: "Startup Innovativa",
-    role: "Motore di accelerazione",
+    name: "Startup Attuatore",
+    role: "Attuatore e gestione operativa",
     gives:
-      "Piattaforma tecnologica di welfare integrato con cultura, fondo per la copertura integrale dei biglietti, tool digitali di incremento adozioni, comunicazione delle Best Practice delle imprese clienti.",
-    gets: "Creazione di cluster pubblico-privati orientati allo Shared Value, in cui innovazioni dei modelli di business creano valore economico per i promotori e nuovi profitti in settori caratterizzati da marginalità economica e perdita strutturale.",
+      "Piattaforma tecnologica di welfare territoriale, fondo Matching Grant per il raddoppio dei voucher con biglietti omaggio a coppie, 3 FTE dedicati a proprio carico per il supporto operativo e fiscale chiavi in mano alle PMI clienti.",
+    gets: "Sviluppo di partenariati pubblico-privati orientati allo Shared Value per le Aree Interne, dove l'innovazione di modello genera valore condiviso, coesione e ricadute misurabili.",
   },
   {
     name: "Imprese clienti",
@@ -653,9 +663,9 @@ function computeModelValues(inp: InputValues): Record<string, number> {
   const kmEvitati = consegne * inp.km;
   const co2t = (kmEvitati * 0.19) / 1000;
   const eco = fatturato + indotto + mg;
-  const amb = seed * 0.25;
-  const inviti = amb * 5;
-  const kf = 0.25 * 5 * 0.25;
+  const amb = seed * 0.35;
+  const inviti = amb * 6;
+  const kf = 0.35 * 6 * 0.35;
   const prosp = amb * prospect;
   const contratti = prosp * chiusura;
   const dChurn = Math.max(0, churnA - churnB);
@@ -717,15 +727,9 @@ export function computeModel(inp: InputValues): ModelOutput {
 
 export const PRESETS: { id: string; label: string; note: string; values: InputValues }[] = [
   {
-    id: "base",
-    label: "Scenario base",
-    note: "I parametri di riferimento per un evento",
-    values: DEF_INPUTS,
-  },
-  {
-    id: "prudente",
-    label: "Scenario prudenziale",
-    note: "Avvio su perimetro ridotto con adozioni caute",
+    id: "pilota-prudenziale",
+    label: "Scenario pilota prudenziale",
+    note: "Avvio su perimetro ridotto (100 aziende x 25 dip) con adozioni caute e CLV 1.500 €",
     values: {
       aziende: 100,
       dip: 25,
@@ -735,29 +739,54 @@ export const PRESETS: { id: string; label: string; note: string; values: InputVa
       freq: 3,
       km: 30,
       churnA: 10,
-      churnB: 3,
+      churnB: 2,
       prospect: 20,
       chiusura: 20,
-      clv: 1250,
+      clv: 1500,
     },
   },
   {
-    id: "ambizioso",
-    label: "Scenario regionale",
-    note: "Due eventi per ogni Provincia della Regione",
+    id: "pilota-base",
+    label: "Scenario pilota base",
+    note: "150 aziende, 4.500 addetti, adozioni 16% hotel, 25% food, 20% Km 0 con 6 ordini annui e CLV 2.500 €",
+    values: {
+      aziende: SCENARIO_PILOTA_150.aziende,
+      dip: SCENARIO_PILOTA_150.dipendentiPerAzienda,
+      hotel: Math.round(SCENARIO_PILOTA_150.tassoAdesioneHotel * 100),
+      aper: Math.round(SCENARIO_PILOTA_150.tassoAdesioneFood * 100),
+      km0: Math.round(SCENARIO_PILOTA_150.tassoAdozioneKm0 * 100),
+      freq: SCENARIO_PILOTA_150.frequenzaAcquistiKm0,
+      km: SCENARIO_PILOTA_150.trattaLogisticaEvitataKm,
+      churnA: 10,
+      churnB: 2,
+      prospect: Math.round(SCENARIO_PILOTA_150.nuoviProspectRate * 100),
+      chiusura: Math.round(SCENARIO_PILOTA_150.tassoChiusuraProspect * 100),
+      clv: 2500,
+    },
+  },
+  {
+    id: "regionale-prudenziale",
+    label: "Scenario regionale prudenziale",
+    note: "200 aziende, 8.000 addetti, adozioni 22% hotel, 32% food, 20% Km 0 con 6 riordini e CLV 1.500 € (Scenario ufficiale)",
+    values: DEF_INPUTS,
+  },
+  {
+    id: "regionale-base",
+    label: "Scenario regionale base",
+    note: "250 aziende x 35 dip, adozioni elevate su tutta la regione e CLV 2.500 €",
     values: {
       aziende: 250,
       dip: 35,
-      hotel: 20,
+      hotel: 25,
       aper: 35,
-      km0: 20,
-      freq: 9,
+      km0: 35,
+      freq: 10,
       km: 60,
       churnA: 10,
       churnB: 2,
-      prospect: 30,
-      chiusura: 25,
-      clv: 1750,
+      prospect: 45,
+      chiusura: 30,
+      clv: 2500,
     },
   },
 ];

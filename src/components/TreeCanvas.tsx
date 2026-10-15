@@ -867,7 +867,7 @@ export default function TreeCanvas() {
           {[
             { l: "Valore ecosistema", v: formatValue("eur", model.values["m12"]) },
             { l: "Emissioni evitate", v: formatValue("t", model.values["m11"]) },
-            { l: "Valore commerciale", v: formatValue("eur", model.values["m20"]) },
+            { l: "Valore complessivo", v: formatValue("eur", model.values["m20"]) },
           ].map((c) => (
             <div
               key={c.l}

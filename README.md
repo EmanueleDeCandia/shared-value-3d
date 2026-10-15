@@ -52,81 +52,59 @@ Il progetto implementa un modello di **Shared Value** in cui la competitività a
 
 ---
 
-## 3. Parametri del Modello Matematico
+## 3. Parametri del Modello Matematico (Single Source of Truth)
+
+Tutti i parametri invarianti, gli scenari e le formule matematiche sono centralizzati nel pacchetto file-based condiviso:
+**[`shared-value-core`](file:///c:/Users/user/Desktop/shared-value-core)**, importato come dipendenza diretta.
 
 ### 3.1 Costanti Invarianti
 | Costante | Valore | Descrizione |
 |---|---|---|
-| Quota Voucher Hotel | **€ 50** | Quota welfare per soggiorno/agriturismo |
-| Quota Voucher Food | **€ 25** | Quota welfare per ristorazione/degustazione |
-| Scontrino medio Km 0 | **€ 30** | Spesa media per ordine cesto agricolo |
-| Fattore emissioni autotrasporto | **0,19 kg CO₂/km** | Coefficiente di calcolo emissioni evitate |
-| Matching Grant | **€ 25 / biglietto** | Copertura a carico esclusivo della Startup |
-| Moltiplicatore indotto | **2,5×** | Rapporto spesa voucher / spesa complessiva sul territorio |
-| Biglietti per beneficiario | **2** | Lavoratore + accompagnatore |
-| Quota di adesione referral | **25%** | Percentuale beneficiari che attivano inviti |
-| Inviti medi per persona | **5** | Numero inviti inviati |
-| Tasso di conversione inviti | **25%** | Tasso di conversione del passaparola |
-| **K-Factor virale** | **0,3125** | $25\% \times 5 \times 25\%$ |
-
-### 3.2 Variabili di Input (Valori di Default e Range)
-| Variabile | Chiave | Min | Max | Step | **Valore Default** |
-|---|---|---|---|---|---|
-| Aziende clienti attive | `aziende` | 10 | 400 | 5 | **150** |
-| Dipendenti medi per azienda | `dip` | 5 | 120 | 1 | **30** |
-| Adozione buono soggiorno | `hotel` | 0 | 60% | 1% | **16%** |
-| Adozione Voucher Aperitivo-Cena | `aper` | 0 | 60% | 1% | **25%** |
-| Acquisto Prodotti Km 0 | `km0` | 0 | 60% | 1% | **20%** |
-| Ordini di cesti all'anno | `freq` | 1 | 12 | 1 | **6 ordini/anno** |
-| Tratta logistica evitata (km) | `km` | 10 | 200 | 5 | **50 km** |
-| Abbandono attuale dei clienti | `churnA` | 0 | 30% | 1% | **10%** |
-| Abbandono con welfare attivo | `churnB` | 0 | 30% | 1% | **2%** |
-| Generazione di richieste spontanee | `prospect` | 0 | 60% | 1% | **30%** |
-| Tasso di chiusura dei contratti | `chiusura` | 0 | 60% | 1% | **20%** |
-| Customer Lifetime Value (CLV) | `clv` | € 1.000 | € 5.000 | 50 | **€ 1.250** |
-
-*Regola di calcolo:* $\Delta \text{churn} = \max(0, \text{churnA} - \text{churnB})$.
+| Quota Voucher Hotel | **€ 50** | Quota welfare per soggiorno/agriturismo (deducibile TUIR art. 51) |
+| Quota Voucher Food | **€ 25** | Quota welfare per ristorazione/degustazione tipica |
+| Scontrino medio Km 0 | **€ 30** | Spesa media per ordine cesto agricolo certificato |
+| Copertura Matching Grant | **€ 25 / biglietto** | Copertura a carico esclusivo del fondo Startup |
+| Biglietti per beneficiario | **2** | Lavoratore + accompagnatore (esperienza condivisa) |
+| Moltiplicatore presenze coppia | **2×** | Raddoppio presenze turistiche e a tavola nei borghi |
+| Spesa indotta 2a giornata | **€ 100** | Indotto medio per notte trascorsa nel borgo |
+| Tratta logistica evitata | **50 km** | Risparmio per consegna sui giri ordinari di rifornimento |
+| Fattore emissioni autotrasporto | **0,19 kg CO₂/km** | Coefficiente di calcolo emissioni evitate (van leggeri) |
+| Moltiplicatore Intangibile ESG | **2,0×** | Rapporto tra valore non monetizzabile diffuso e valore monetizzabile diretto |
 
 ---
 
-## 4. Formule di Calcolo e Output Verificati (Valori di Default)
+### 3.2 Scenari Ufficiali di Sistema
 
-Tutti i valori sono calcolati sui parametri di default definiti al §3:
+#### A. Scenario Ufficiale Target a Regime: `SCENARIO_REGIME_200` (Predefinito)
+Adottato nelle Card di Reporting ESG e nella Landing Page Clienti:
 
-| # | Metrica | Formula Matematica | Sostituzione Numerica | **Output Risultante** |
-|---|---|---|---|---|
-| 1 | Popolazione lavoratori raggiunta ($W$) | $W = \text{Aziende} \times \text{Dipendenti}$ | $150 \times 30$ | **4.500** |
-| 2 | Welfare seed | $\text{Seed} = W \times \max(\text{Ad. Hotel}, \text{Ad. Food})$ | $4.500 \times 25\%$ | **1.125** |
-| 3 | Biglietti omaggio emessi | $B = \text{Seed} \times 2$ | $1.125 \times 2$ | **2.250** |
-| 4 | Valore Matching Grant Startup | $\text{MG} = B \times 25$ | $2.250 \times 25$ | **€ 56.250** |
-| 5 | Budget welfare complessivo attivato | $(W \times h\% \times 50) + (W \times a\% \times 25)$ | $(4.500 \times 16\% \times 50) + (4.500 \times 25\% \times 25)$ | **€ 64.125** |
-| 6 | Spesa indotta territoriale | $\text{Indotto} = \text{Budget Welfare} \times 2{,}5$ | $64.125 \times 2{,}5$ | **€ 160.313** |
-| 7 | Acquirenti della filiera corta | $\text{Acq} = W \times \text{Ad. Km0}$ | $4.500 \times 20\%$ | **900** |
-| 8 | Consegne annue | $C = \text{Acq} \times \text{Frequenza}$ | $900 \times 6$ | **5.400** |
-| 9 | Fatturato della filiera | $F = C \times 30$ | $5.400 \times 30$ | **€ 162.000** |
-| 10 | Logistica stradale evitata | $\text{Km} = C \times \text{km/tratta}$ | $5.400 \times 50$ | **270.000 km** |
-| 11 | Emissioni evitate | $\text{CO}_2 = \text{Km} \times 0{,}19$ | $270.000 \times 0{,}19 = 51.300\text{ kg}$ | **51,3 t** |
-| 12 | Valore generato per l'ecosistema | $F + \text{Indotto} + \text{MG}$ | $162.000 + 160.312{,}5 + 56.250$ | **€ 378.563** |
-| 13 | Ambasciatori del welfare | $\text{Seed} \times 25\%$ | $1.125 \times 0{,}25$ | **281** |
-| 14 | Inviti generati | $\text{Ambasciatori} \times 5$ | $281{,}25 \times 5$ | **1.406** |
-| 15 | Indice di viralità (K-Factor) | $25\% \times 5 \times 25\%$ | $0{,}25 \times 5 \times 0{,}25$ | **0,3125** |
-| 16 | Aziende interessate (prospect) | $\text{Ambasciatori} \times \text{Tasso Prospect}$ | $281{,}25 \times 30\%$ | **84** |
-| 17 | Nuovi contratti firmati | $\text{Prospect} \times \text{Tasso Chiusura}$ | $84{,}375 \times 20\%$ | **17** |
-| 18 | Imprese clienti trattenute | $\text{Aziende} \times (\text{ChurnA} - \text{ChurnB})$ | $150 \times (10\% - 2\%)$ | **12** |
-| 19 | Valore preservato dalla retention | $\text{Fidelizzate} \times \text{CLV}$ | $12 \times 1.250$ | **€ 15.000** |
-| 20 | Valore commerciale complessivo | $(\text{Fidelizzate} + \text{Nuovi Contratti}) \times \text{CLV}$ | $(12 + 16{,}875) \times 1.250$ | **€ 36.094** |
-| 21 | Riduzione dell'abbandono | $\frac{\text{ChurnA} - \text{ChurnB}}{\text{ChurnA}}$ | $\frac{10 - 2}{10}$ | **−80%** |
+| Parametro | Valore | Descrizione |
+|---|---|---|
+| **Aziende clienti attive** | **200 imprese** | Rete delle imprese partner territoriali |
+| **Dipendenti medi per azienda** | **40 persone** | Taglia media organico |
+| **Popolazione totale ($W$)** | **8.000 lavoratori** | $200 \times 40$ |
+| Adozione buono soggiorno ($T_{hotel}$) | **22%** | $1.760$ beneficiari |
+| Adozione buono food ($T_{food}$) | **32%** | $2.560$ beneficiari |
+| Adozione acquisto Km 0 ($T_{km0}$) | **30%** | $2.400$ acquirenti attivi |
+| Frequenza ordini cesti Km 0 | **8 ordini/anno** | Cadenza periodica ogni circa 6 settimane |
+| **Panieri Km 0 consegnati** | **19.200 panieri** | $2.400 \times 8$ |
+| **Fatturato annuo filiera Km 0** | **€ 576.000** | $19.200 \times 30\text{ €}$ |
+| **CO₂ evitata** | **182,4 tonnellate** | $19.200 \times 50\text{ km} \times 0,19\text{ kg} / 1000$ |
+| **Valore Monetizzabile Diretto Esteso** | **€ 924.000 / anno** | Hotel (€ 176k) + Food (€ 128k) + Cultura (€ 44k) + Km 0 (€ 576k) |
+| **Flusso monetizzabile pro capite** | **€ 115,50 / persona** | € 924.000 / 8.000 addetti |
+| **Valore Intangibile ESG (2×)** | **€ 1.848.000 / anno** | Presidio demografico, tutela paesaggio e coesione |
+| **Valore Complessivo di Sistema** | **€ 2.772.000 / anno** | Monetizzabile Esteso + Intangibile |
+
+#### B. Scenario Pilota Iniziale: `SCENARIO_PILOTA_150`
+Disponibile nei preset per simulazioni prudenziali di avvio:
+* **150 aziende**, **30 dipendenti medi** (4.500 lavoratori totali)
+* Adozioni: 16% hotel, 25% food, 20% Km 0 con 6 ordini annui (5.400 panieri = € 162.000)
+* CO₂ evitata: 51,3 t
 
 ---
 
-## 5. Indicatori di Sintesi Chiave (Cruscotto Finale)
+## 4. Architettura Multi-Applicazione
 
-* **Impatto Sociale e Persone:** 4.500 lavoratori raggiunti; 2.250 biglietti per spettacoli erogati; 20 artisti/evento retribuiti.
-* **Impatto Ambientale:** 270.000 km di logistica neutralizzati; **51,3 tonnellate di CO₂ evitate**.
-* **Impatto Territoriale:** € 162.000 fatturato agricolo; € 160.313 spesa indotta locale; € 56.250 Matching Grant coperto da Startup (**€ 378.563 Valore Ecosistema**).
-* **Impatto Commerciale (Gruppo Vending):**
-  * Tasso di abbandono (Churn) abbattuto dal 10% al 2% (**−80%**).
-  * 12 imprese clienti trattenute (€ 144.000 valore preservato).
-  * 17 nuovi contratti aziendali sottoscritti a CAC pari a zero.
-  * **€ 348.000 complessivi di valore B2B generato e protetto**.
-  * Posizionamento strategico come partner welfare ed ESG con dossier spendibili nelle gare d'appalto.
+Grazie alla creazione del pacchetto locale **[`shared-value-core`](file:///c:/Users/user/Desktop/shared-value-core)**:
+* Tutte le applicazioni leggono gli stessi parametri, costanti e formule.
+* Qualsiasi modifica futura ai coefficienti di impatto o alle aliquote TUIR si propaga istantaneamente e in modo coerente in entrambe le applicazioni senza disallineamenti o ambiguità per gli stakeholder.

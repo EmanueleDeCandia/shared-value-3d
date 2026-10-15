@@ -4,7 +4,8 @@ node_modules/
 .pnp.js
 
 # Production build output
-dist/
+/dist/
+!packages/shared-value-core/dist/
 build/
 
 # Archives & binaries

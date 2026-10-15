@@ -25,6 +25,14 @@ function scrollToTree() {
   document.getElementById("albero")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function scrollToIndicators() {
+  document.getElementById("risultati")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function scrollToMechanics() {
+  document.getElementById("meccaniche")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export default function DetailPanel() {
   useStoreVersion();
   const sel = store.selected;
@@ -152,6 +160,20 @@ export default function DetailPanel() {
             </button>
           ))}
         </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button
+            onClick={scrollToTree}
+            className="border border-amber/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-amber transition-colors hover:bg-amber hover:text-moss-950"
+          >
+            Vedilo sull'albero
+          </button>
+          <button
+            onClick={scrollToMechanics}
+            className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-sage transition-colors hover:border-amber/60 hover:text-amber-soft"
+          >
+            Torna alle meccaniche
+          </button>
+        </div>
       </>
     );
   } else if (sel.type === "leaves") {
@@ -223,12 +245,18 @@ export default function DetailPanel() {
             </div>
           </>
         )}
-        <div className="mt-4 flex gap-2">
+        <div className="mt-4 flex flex-wrap gap-2">
           <button
             onClick={scrollToTree}
             className="border border-amber/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-amber transition-colors hover:bg-amber hover:text-moss-950"
           >
             Vedilo sull'albero
+          </button>
+          <button
+            onClick={scrollToIndicators}
+            className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-sage transition-colors hover:border-amber/60 hover:text-amber-soft"
+          >
+            Torna agli indicatori
           </button>
         </div>
       </>

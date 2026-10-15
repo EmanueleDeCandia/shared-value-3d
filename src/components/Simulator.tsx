@@ -1,5 +1,5 @@
 import { store, useStoreVersion } from "../lib/store";
-import { INPUTS, PRESETS, type InputDef } from "../lib/model";
+import { INPUTS, PRESETS, DEFAULT_INPUTS, type InputDef } from "../lib/model";
 import { formatValue, fmtInt } from "../lib/format";
 
 const GROUP_LABEL: Record<InputDef["group"], string> = {
@@ -62,7 +62,7 @@ export default function Simulator() {
     { l: "Fatturato filiera", v: formatValue("eur", model.values["m9"]) },
     { l: "Emissioni evitate", v: formatValue("t", model.values["m11"]) },
     { l: "Nuovi contratti", v: formatValue("int", model.values["m17"]) },
-    { l: "Valore commerciale", v: formatValue("eur", model.values["m20"]) },
+    { l: "Valore complessivo", v: formatValue("eur", model.values["m20"]) },
   ];
 
   return (
@@ -84,20 +84,27 @@ export default function Simulator() {
               ventitré metriche e ridisegna l'albero. Premi l'indicatore per aprire la scheda.
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {PRESETS.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => store.applyPreset(p.values)}
-                className="group border border-line bg-moss-850 px-3.5 py-2.5 text-left transition-colors hover:border-amber/70"
-                title={p.note}
-              >
-                <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-amber-soft">
-                  {p.label}
-                </span>
-                <span className="mt-0.5 block text-[11.5px] text-dim group-hover:text-sage">{p.note}</span>
-              </button>
-            ))}
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-3 w-full lg:w-auto lg:min-w-[500px]">
+            {PRESETS.map((p) => {
+              const isActive = (Object.keys(p.values) as (keyof typeof p.values)[]).every(
+                (k) => store.inputs[k] === p.values[k]
+              );
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => store.applyPreset(p.values)}
+                  className={`w-full min-h-[50px] px-3.5 py-2.5 flex items-center justify-center text-center border transition-all ${isActive
+                      ? "border-amber bg-amber/15 text-amber-soft ring-1 ring-amber/50 font-semibold shadow-[0_0_12px_rgba(235,178,74,0.12)]"
+                      : "border-line bg-moss-850 text-sage hover:border-amber/60 hover:text-amber-soft"
+                    }`}
+                  title={p.note}
+                >
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] leading-snug">
+                    {p.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -147,7 +154,7 @@ export default function Simulator() {
               </p>
             </div>
             <button
-              onClick={() => store.applyPreset(PRESETS[0].values)}
+              onClick={() => store.applyPreset(DEFAULT_INPUTS)}
               className="mt-3 w-full border border-line py-2.5 font-mono text-[11px] uppercase tracking-[0.16em] text-sage transition-colors hover:border-amber/60 hover:text-amber-soft"
             >
               Ripristina lo scenario base
